@@ -16,11 +16,13 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     
     public var email: String
     
-    public var role: Role
-    
     public var firstName: String
     
     public var lastName: String
+    
+    public let gender: Gender
+    
+    public var role: Role
     
     public var phoneNumber: String? = nil
     
@@ -29,6 +31,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
         email: String,
         firstName: String,
         lastName: String,
+        gender: Gender = .male,
         role: Role = .client,
         phoneNumber: String? = nil
     ) {
@@ -36,6 +39,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
+        self.gender = gender
         self.role = role
         self.phoneNumber = phoneNumber
         self.created = Date()
@@ -49,5 +53,14 @@ public extension User {
         case client = 0
         
         case admin = 999
+    }
+}
+
+public extension User {
+    
+    enum Gender: String, Codable, CaseIterable {
+        
+        case male
+        case female
     }
 }
