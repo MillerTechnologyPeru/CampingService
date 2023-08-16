@@ -19,7 +19,8 @@ public func configure(_ app: Application) async throws {
     ), as: .psql)
 
     // migrations
-    app.migrations.add(CreateCampground())
+    app.migrations.add(CreateCampgroundMigration())
+    app.migrations.add(CreateRentalUnitMigration())
     
     // configure JSON encoder
     ContentConfiguration.global.use(encoder: JSONEncoder.camping, for: .json)
