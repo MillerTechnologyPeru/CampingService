@@ -11,7 +11,8 @@ public extension JSONDecoder {
     
     static var camping: JSONDecoder {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .secondsSince1970
+        decoder.dataDecodingStrategy = .base64
         return decoder
     }
 }
@@ -20,7 +21,8 @@ public extension JSONEncoder {
     
     static var camping: JSONEncoder {
         let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.dateEncodingStrategy = .secondsSince1970
+        encoder.dataEncodingStrategy = .base64
         return encoder
     }
 }
