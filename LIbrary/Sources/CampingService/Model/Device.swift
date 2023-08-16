@@ -18,15 +18,19 @@ public struct Device: Equatable, Hashable, Codable, Identifiable {
     
     public let secret: Data
     
+    public var user: User.ID?
+    
     public init(
         id: UUID = UUID(),
         apnsToken: String? = nil,
         language: Language = Language.current,
-        secret: Data
+        secret: Data,
+        user: User.ID? = nil
     ) {
         self.id = id
         self.apnsToken = apnsToken
         self.language = language
         self.secret = secret
+        self.user = user
     }
 }
