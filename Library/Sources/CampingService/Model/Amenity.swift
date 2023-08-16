@@ -22,6 +22,7 @@ public enum Amenity: String, Codable, CaseIterable {
     case cabins
     case showers
     case restrooms
+    case pool
     case fishing
     case beach
     case lake
