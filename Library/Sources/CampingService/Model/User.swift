@@ -16,6 +16,8 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     
     public var email: String
     
+    public var phoneNumber: String?
+    
     public var firstName: String
     
     public var lastName: String
@@ -24,16 +26,15 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     
     public var role: Role
     
-    public var phoneNumber: String?
-    
     public init(
         id: UUID = UUID(),
+        created: Date = Date(),
         email: String,
+        phoneNumber: String? = nil,
         firstName: String,
         lastName: String,
         gender: Gender = .male,
-        role: Role = .client,
-        phoneNumber: String? = nil
+        role: Role = .client
     ) {
         self.id = id
         self.email = email
@@ -42,7 +43,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
         self.gender = gender
         self.role = role
         self.phoneNumber = phoneNumber
-        self.created = Date()
+        self.created = created
     }
 }
 
