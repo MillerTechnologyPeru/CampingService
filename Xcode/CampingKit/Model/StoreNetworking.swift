@@ -26,7 +26,7 @@ private extension Store {
         }
         return token
     }
-    
+    /*
     func authorized<T>(
         _ block: (AuthorizationToken) async throws -> T
     ) async throws -> T {
@@ -49,7 +49,7 @@ private extension Store {
                 throw error
             }
         }
-    }
+    }*/
 }
 
 internal extension Store {
