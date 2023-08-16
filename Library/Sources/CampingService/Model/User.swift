@@ -9,7 +9,7 @@ import Foundation
 
 /// User
 public struct User: Equatable, Hashable, Codable, Identifiable {
-            
+    
     public let id: UUID
     
     public let created: Date
@@ -24,7 +24,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     
     public var role: Role
     
-    public var phoneNumber: String? = nil
+    public var phoneNumber: String?
     
     public init(
         id: UUID = UUID(),
@@ -50,9 +50,10 @@ public extension User {
     
     enum Role: Int, Codable, CaseIterable {
         
-        case client = 0
-        
-        case admin = 999
+        case client             = 0
+        case campgroundAdmin    = 900
+        case admin              = 990
+        case superAdmin         = 999
     }
 }
 
