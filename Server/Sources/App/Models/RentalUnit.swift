@@ -10,7 +10,7 @@ import Fluent
 import Vapor
 import CampingService
 
-final class RentalUnitModel: Model, Content {
+final class RentalUnitModel: Model {
     
     typealias IDValue = UUID
     
@@ -18,6 +18,12 @@ final class RentalUnitModel: Model, Content {
     
     @ID
     var id: UUID?
+    
+    @Timestamp(key: DatabaseKey.created.field, on: .create)
+    var created: Date?
+    
+    @Timestamp(key: DatabaseKey.updated.field, on: .update)
+    var updated: Date?
     
     @Parent(key: DatabaseKey.campground.field)
     var campground: CampgroundModel
@@ -50,6 +56,8 @@ extension RentalUnitModel {
         case amenities
         case checkin
         case checkout
+        case created
+        case updated
         
         var field: FieldKey {
             .string(rawValue)
@@ -102,3 +110,5 @@ extension RentalUnit {
         )
     }
 }
+
+extension RentalUnit: Content { }

@@ -10,7 +10,7 @@ import Fluent
 import Vapor
 import CampingService
 
-final class CampgroundModel: Model, Content {
+final class CampgroundModel: Model {
     
     typealias IDValue = UUID
     
@@ -18,6 +18,12 @@ final class CampgroundModel: Model, Content {
     
     @ID
     var id: UUID?
+    
+    @Timestamp(key: DatabaseKey.created.field, on: .create)
+    var created: Date?
+    
+    @Timestamp(key: DatabaseKey.updated.field, on: .update)
+    var updated: Date?
     
     @Field(key: DatabaseKey.name.field)
     var name: String
@@ -78,6 +84,8 @@ extension CampgroundModel {
         case officeHoursStart
         case officeHoursEnd
         case units
+        case created
+        case updated
         
         var field: FieldKey {
             .string(rawValue)
@@ -114,3 +122,25 @@ extension CampgroundModel {
         self.officeHoursEnd = Int(officeHours.end)
     }
 }
+
+extension Campground {
+    
+    init(fluent model: CampgroundModel) {
+        self.init(
+            id: model.id!,
+            name: model.name,
+            address: model.address,
+            location: .init(latitude: model.latitude, longitude: model.longitude),
+            amenities: model.amenities,
+            phoneNumber: model.phoneNumber,
+            descriptionText: model.descriptionText,
+            notes: model.notes,
+            directions: model.directions,
+            units: model.units.compactMap { $0.id },
+            timeZone: model.timeZone,
+            officeHours: .init(start: UInt(model.officeHoursStart), end: UInt(model.officeHoursEnd))
+        )
+    }
+}
+
+extension Campground: Content { }
