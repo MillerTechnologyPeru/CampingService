@@ -1,7 +1,8 @@
-@testable import App
+@testable import CampingServer
 import XCTVapor
 
 final class AppTests: XCTestCase {
+    
     func testHelloWorld() async throws {
         let app = Application(.testing)
         defer { app.shutdown() }
