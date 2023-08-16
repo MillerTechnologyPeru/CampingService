@@ -2,6 +2,7 @@ import NIOSSL
 import Fluent
 import FluentPostgresDriver
 import Vapor
+import CampingService
 
 // configures your application
 public func configure(_ app: Application) async throws {
@@ -17,8 +18,13 @@ public func configure(_ app: Application) async throws {
         tls: .prefer(try .init(configuration: .clientDefault)))
     ), as: .psql)
 
-    app.migrations.add(CreateTodo())
-
+    // migrations
+    app.migrations.add(CreateCampground())
+    
+    // configure JSON encoder
+    ContentConfiguration.global.use(encoder: JSONEncoder.camping, for: .json)
+    ContentConfiguration.global.use(decoder: JSONDecoder.camping, for: .json)
+    
     // register routes
     try routes(app)
 }
