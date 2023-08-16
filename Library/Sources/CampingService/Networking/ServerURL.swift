@@ -61,3 +61,85 @@ public extension CampingServer {
         return CampingServer(rawValue: "http://localhost:" + port.description)!
     }
 }
+
+// MARK: - Supporting Types
+
+public enum CampingEntity: String, Codable, CaseIterable {
+    
+    case campground
+    case rentalUnit = "unit"
+    case reservation
+    case device
+    case user
+}
+
+public enum CampingURI {
+    
+    case fetch(CampingEntity, UUID)
+    case search(CampingEntity, String, sort: [String], order: [String])
+    case create(CampingEntity)
+    case edit(CampingEntity, UUID)
+    case delete(CampingEntity, UUID)
+}
+
+public extension CampingURI {
+    
+    var entity: CampingEntity {
+        switch self {
+        case .fetch(let entity, _):
+            return entity
+        case .search(let entity, _, _, _):
+            return entity
+        case .create(let entity):
+            return entity
+        case .edit(let entity, _):
+            return entity
+        case .delete(let entity, _):
+            return entity
+        }
+    }
+    
+    var method: HTTPMethod {
+        switch self {
+        case .fetch:
+            return .get
+        case .search:
+            return .get
+        case .create:
+            return .post
+        case .edit:
+            return .put
+        case .delete:
+            return .delete
+        }
+    }
+    
+    func url(for server: CampingServer) -> URL {
+        var url = URL(server: server)
+        switch self {
+        case .fetch(let entity, let id):
+            return url
+                .appendingPathComponent(entity.rawValue)
+                .appendingPathComponent(id.description)
+        case .search(let entity, let searchString, let sort, let order):
+            url
+                .appendPathComponent(entity.rawValue)
+            if searchString.isEmpty == false {
+                url.append(queryItems: [URLQueryItem(name: "search", value: searchString)])
+            }
+            // TODO: Sort and Order
+            return url
+        case .create(let entity):
+            return url
+                .appendingPathComponent(entity.rawValue)
+        case .edit(let entity, let id):
+            return url
+                .appendingPathComponent(entity.rawValue)
+                .appendingPathComponent(id.description)
+        case .delete(let entity, let id):
+            return url
+                .appendingPathComponent(entity.rawValue)
+                .appendingPathComponent(id.description)
+        }
+    }
+}
