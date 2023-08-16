@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// HTTP Method
+/// Camping Server URL
 public struct CampingServer: Codable, Equatable, Hashable, Sendable {
     
     internal let url: URL

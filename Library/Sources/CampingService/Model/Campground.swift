@@ -24,11 +24,16 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     
     public var descriptionText: String
     
+    /// The number of seconds from GMT.
+    public var timeZone: Int
+    
     public var notes: String?
     
     public var directions: String?
     
     public var units: [RentalUnit.ID]
+    
+    public var officeHours: Schedule
     
     public init(
         id: UUID = UUID(),
@@ -40,7 +45,9 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         descriptionText: String,
         notes: String? = nil,
         directions: String? = nil,
-        units: [RentalUnit.ID] = []
+        units: [RentalUnit.ID] = [],
+        timeZone: Int = 0,
+        officeHours: Schedule
     ) {
         self.id = id
         self.name = name
@@ -52,6 +59,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         self.notes = notes
         self.directions = directions
         self.units = units
+        self.timeZone = timeZone
+        self.officeHours = officeHours
     }
 }
 

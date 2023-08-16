@@ -20,17 +20,22 @@ public struct RentalUnit: Equatable, Hashable, Codable, Identifiable {
     
     public var amenities: [Amenity]
     
+    public var checkout: Schedule
+    
     public init(
         id: UUID = UUID(),
         campground: Campground.ID,
         name: String,
         notes: String? = nil,
-        amenities: [Amenity] = []
+        amenities: [Amenity] = [],
+        checkout: Schedule
     ) {
         self.id = id
         self.campground = campground
         self.name = name
         self.notes = notes
         self.amenities = amenities
+        self.checkout = checkout
     }
 }
+
