@@ -64,7 +64,7 @@
 		6E2CF9892A8C5BFC00811090 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6E2CF9952A8C5C4100811090 /* CampingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CampingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampingKit.swift; sourceTree = "<group>"; };
-		6E2CF9A42A8C5C9400811090 /* LIbrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LIbrary; path = ../LIbrary; sourceTree = "<group>"; };
+		6E2CF9A42A8C5C9400811090 /* Library */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Library; path = ../Library; sourceTree = "<group>"; };
 		6E2CF9B42A8C685F00811090 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		6E2CF9B62A8C692100811090 /* InfoPlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPlist.swift; sourceTree = "<group>"; };
 		6E2CF9BB2A8C695F00811090 /* ProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorView.swift; sourceTree = "<group>"; };
@@ -124,6 +124,7 @@
 		6E2CF9802A8C5BFB00811090 /* CampingApp */ = {
 			isa = PBXGroup;
 			children = (
+				6E2CF9CE2A8C737200811090 /* Intents */,
 				6E2CF9B92A8C692F00811090 /* View */,
 				6E2CF9B82A8C692800811090 /* Model */,
 				6E2CF9812A8C5BFB00811090 /* App.swift */,
@@ -156,7 +157,7 @@
 		6E2CF9A32A8C5C9400811090 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				6E2CF9A42A8C5C9400811090 /* LIbrary */,
+				6E2CF9A42A8C5C9400811090 /* Library */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -229,6 +230,13 @@
 				6E2CF9C22A8C69BB00811090 /* ImagePickerView.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		6E2CF9CE2A8C737200811090 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Intents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

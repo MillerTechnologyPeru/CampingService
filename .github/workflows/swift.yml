@@ -9,7 +9,7 @@ jobs:
       matrix:
         swift: [5.7.3, 5.8.1]
         os: [ubuntu-20.04, macos-latest]
-        target: [LIbrary, Server]
+        target: [Library, Server]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Install Swift
@@ -31,7 +31,7 @@ jobs:
       matrix:
         swift: [5.7.3, 5.8.1]
         os: [ubuntu-20.04, macos-latest]
-        target: [LIbrary, Server]
+        target: [Library, Server]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Install Swift
