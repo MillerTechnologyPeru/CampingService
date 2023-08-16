@@ -28,6 +28,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     
     public var directions: String?
     
+    public var units: [RentalUnit.ID]
+    
     public init(
         id: UUID = UUID(),
         name: String,
@@ -37,7 +39,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         phoneNumber: String? = nil,
         descriptionText: String,
         notes: String? = nil,
-        directions: String? = nil
+        directions: String? = nil,
+        units: [RentalUnit.ID] = []
     ) {
         self.id = id
         self.name = name
@@ -48,6 +51,7 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         self.descriptionText = descriptionText
         self.notes = notes
         self.directions = directions
+        self.units = units
     }
 }
 
