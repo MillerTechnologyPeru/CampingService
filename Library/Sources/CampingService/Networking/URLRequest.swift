@@ -21,13 +21,31 @@ public protocol CampingURLRequest {
     func url(for server: CampingServer) -> URL
 }
 
+public protocol EncodableCampingURLRequest {
+    
+    associatedtype Body: Encodable
+    
+    var content: Body { get }
+}
+
 public extension CampingURLRequest {
     
     static var method: HTTPMethod { .get }
     
-    static var contentType: String? { nil }
-        
-    var body: Data? { nil }
+    static var contentType: String? { "application/json" }
+}
+
+extension EncodableCampingURLRequest {
+    
+    public var body: Data? {
+        do {
+            return try JSONEncoder.camping.encode(content)
+        }
+        catch {
+            assertionFailure("Unable to encode \(self). \(error.localizedDescription)")
+            return nil
+        }
+    }
 }
 
 public extension URLRequest {
