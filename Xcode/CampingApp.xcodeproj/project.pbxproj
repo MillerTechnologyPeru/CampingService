@@ -1,0 +1,668 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6E2CF9822A8C5BFB00811090 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CF9812A8C5BFB00811090 /* App.swift */; };
+		6E2CF9842A8C5BFB00811090 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CF9832A8C5BFB00811090 /* ContentView.swift */; };
+		6E2CF9862A8C5BFC00811090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CF9852A8C5BFC00811090 /* Assets.xcassets */; };
+		6E2CF98A2A8C5BFC00811090 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E2CF9892A8C5BFC00811090 /* Preview Assets.xcassets */; };
+		6E2CF99B2A8C5C4100811090 /* CampingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */; };
+		6E2CF99C2A8C5C4100811090 /* CampingKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E2CF9A22A8C5C4E00811090 /* CampingKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */; };
+		6E2CF9A72A8C5CFE00811090 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9A62A8C5CFE00811090 /* DeviceKit */; };
+		6E2CF9AA2A8C5D2200811090 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9A92A8C5D2200811090 /* KeychainAccess */; };
+		6E2CF9AD2A8C5DC800811090 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9AC2A8C5DC800811090 /* SFSafeSymbols */; };
+		6E2CF9B32A8C5F3900811090 /* CampingService in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9B22A8C5F3900811090 /* CampingService */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E2CF9992A8C5C4100811090 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E2CF9762A8C5BFB00811090 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E2CF9942A8C5C4100811090;
+			remoteInfo = CampingKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6E2CF9A02A8C5C4100811090 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6E2CF99C2A8C5C4100811090 /* CampingKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6E2CF97E2A8C5BFB00811090 /* CampingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CampingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E2CF9812A8C5BFB00811090 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		6E2CF9832A8C5BFB00811090 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6E2CF9852A8C5BFC00811090 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E2CF9872A8C5BFC00811090 /* CampingApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CampingApp.entitlements; sourceTree = "<group>"; };
+		6E2CF9892A8C5BFC00811090 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6E2CF9952A8C5C4100811090 /* CampingKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CampingKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampingKit.swift; sourceTree = "<group>"; };
+		6E2CF9A42A8C5C9400811090 /* LIbrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LIbrary; path = ../LIbrary; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6E2CF97B2A8C5BFB00811090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2CF99B2A8C5C4100811090 /* CampingKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E2CF9922A8C5C4100811090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2CF9AD2A8C5DC800811090 /* SFSafeSymbols in Frameworks */,
+				6E2CF9AA2A8C5D2200811090 /* KeychainAccess in Frameworks */,
+				6E2CF9B32A8C5F3900811090 /* CampingService in Frameworks */,
+				6E2CF9A72A8C5CFE00811090 /* DeviceKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6E2CF9752A8C5BFB00811090 = {
+			isa = PBXGroup;
+			children = (
+				6E2CF9A32A8C5C9400811090 /* Packages */,
+				6E2CF9802A8C5BFB00811090 /* CampingApp */,
+				6E2CF9962A8C5C4100811090 /* CampingKit */,
+				6E2CF97F2A8C5BFB00811090 /* Products */,
+				6E2CF9B12A8C5F3900811090 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6E2CF97F2A8C5BFB00811090 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6E2CF97E2A8C5BFB00811090 /* CampingApp.app */,
+				6E2CF9952A8C5C4100811090 /* CampingKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6E2CF9802A8C5BFB00811090 /* CampingApp */ = {
+			isa = PBXGroup;
+			children = (
+				6E2CF9812A8C5BFB00811090 /* App.swift */,
+				6E2CF9832A8C5BFB00811090 /* ContentView.swift */,
+				6E2CF9852A8C5BFC00811090 /* Assets.xcassets */,
+				6E2CF9872A8C5BFC00811090 /* CampingApp.entitlements */,
+				6E2CF9882A8C5BFC00811090 /* Preview Content */,
+			);
+			path = CampingApp;
+			sourceTree = "<group>";
+		};
+		6E2CF9882A8C5BFC00811090 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				6E2CF9892A8C5BFC00811090 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6E2CF9962A8C5C4100811090 /* CampingKit */ = {
+			isa = PBXGroup;
+			children = (
+				6E2CF9B02A8C5E1900811090 /* Extensions */,
+				6E2CF9AF2A8C5E1400811090 /* View */,
+				6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */,
+				6E2CF9AE2A8C5E0D00811090 /* Model */,
+			);
+			path = CampingKit;
+			sourceTree = "<group>";
+		};
+		6E2CF9A32A8C5C9400811090 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				6E2CF9A42A8C5C9400811090 /* LIbrary */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		6E2CF9AE2A8C5E0D00811090 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6E2CF9AF2A8C5E1400811090 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6E2CF9B02A8C5E1900811090 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6E2CF9B12A8C5F3900811090 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6E2CF9902A8C5C4100811090 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6E2CF97D2A8C5BFB00811090 /* CampingApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E2CF98D2A8C5BFC00811090 /* Build configuration list for PBXNativeTarget "CampingApp" */;
+			buildPhases = (
+				6E2CF97A2A8C5BFB00811090 /* Sources */,
+				6E2CF97B2A8C5BFB00811090 /* Frameworks */,
+				6E2CF97C2A8C5BFB00811090 /* Resources */,
+				6E2CF9A02A8C5C4100811090 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E2CF99A2A8C5C4100811090 /* PBXTargetDependency */,
+			);
+			name = CampingApp;
+			productName = CampingApp;
+			productReference = 6E2CF97E2A8C5BFB00811090 /* CampingApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6E2CF9942A8C5C4100811090 /* CampingKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E2CF99D2A8C5C4100811090 /* Build configuration list for PBXNativeTarget "CampingKit" */;
+			buildPhases = (
+				6E2CF9902A8C5C4100811090 /* Headers */,
+				6E2CF9912A8C5C4100811090 /* Sources */,
+				6E2CF9922A8C5C4100811090 /* Frameworks */,
+				6E2CF9932A8C5C4100811090 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CampingKit;
+			packageProductDependencies = (
+				6E2CF9A62A8C5CFE00811090 /* DeviceKit */,
+				6E2CF9A92A8C5D2200811090 /* KeychainAccess */,
+				6E2CF9AC2A8C5DC800811090 /* SFSafeSymbols */,
+				6E2CF9B22A8C5F3900811090 /* CampingService */,
+			);
+			productName = CampingKit;
+			productReference = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6E2CF9762A8C5BFB00811090 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					6E2CF97D2A8C5BFB00811090 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					6E2CF9942A8C5C4100811090 = {
+						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1430;
+					};
+				};
+			};
+			buildConfigurationList = 6E2CF9792A8C5BFB00811090 /* Build configuration list for PBXProject "CampingApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6E2CF9752A8C5BFB00811090;
+			packageReferences = (
+				6E2CF9A52A8C5CFE00811090 /* XCRemoteSwiftPackageReference "DeviceKit" */,
+				6E2CF9A82A8C5D2200811090 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				6E2CF9AB2A8C5DC800811090 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
+			productRefGroup = 6E2CF97F2A8C5BFB00811090 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6E2CF97D2A8C5BFB00811090 /* CampingApp */,
+				6E2CF9942A8C5C4100811090 /* CampingKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6E2CF97C2A8C5BFB00811090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2CF98A2A8C5BFC00811090 /* Preview Assets.xcassets in Resources */,
+				6E2CF9862A8C5BFC00811090 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E2CF9932A8C5C4100811090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6E2CF97A2A8C5BFB00811090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2CF9842A8C5BFB00811090 /* ContentView.swift in Sources */,
+				6E2CF9822A8C5BFB00811090 /* App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E2CF9912A8C5C4100811090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E2CF9A22A8C5C4E00811090 /* CampingKit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E2CF99A2A8C5C4100811090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E2CF9942A8C5C4100811090 /* CampingKit */;
+			targetProxy = 6E2CF9992A8C5C4100811090 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6E2CF98B2A8C5BFC00811090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 16.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		6E2CF98C2A8C5BFC00811090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TVOS_DEPLOYMENT_TARGET = 16.0;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		6E2CF98E2A8C5BFC00811090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CampingApp/CampingApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CampingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 4W79SG34MW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CampingApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6E2CF98F2A8C5BFC00811090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CampingApp/CampingApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CampingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 4W79SG34MW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CampingApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6E2CF99E2A8C5C4100811090 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4W79SG34MW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CampingKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6E2CF99F2A8C5C4100811090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4W79SG34MW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.colemancda.CampingKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6E2CF9792A8C5BFB00811090 /* Build configuration list for PBXProject "CampingApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E2CF98B2A8C5BFC00811090 /* Debug */,
+				6E2CF98C2A8C5BFC00811090 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E2CF98D2A8C5BFC00811090 /* Build configuration list for PBXNativeTarget "CampingApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E2CF98E2A8C5BFC00811090 /* Debug */,
+				6E2CF98F2A8C5BFC00811090 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E2CF99D2A8C5C4100811090 /* Build configuration list for PBXNativeTarget "CampingKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E2CF99E2A8C5C4100811090 /* Debug */,
+				6E2CF99F2A8C5C4100811090 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6E2CF9A52A8C5CFE00811090 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		6E2CF9A82A8C5D2200811090 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+		6E2CF9AB2A8C5DC800811090 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/piknotech/SFSafeSymbols.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6E2CF9A62A8C5CFE00811090 /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E2CF9A52A8C5CFE00811090 /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
+		};
+		6E2CF9A92A8C5D2200811090 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E2CF9A82A8C5D2200811090 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		6E2CF9AC2A8C5DC800811090 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E2CF9AB2A8C5DC800811090 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		6E2CF9B22A8C5F3900811090 /* CampingService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CampingService;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 6E2CF9762A8C5BFB00811090 /* Project object */;
+}
