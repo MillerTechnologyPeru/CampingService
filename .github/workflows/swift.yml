@@ -29,7 +29,7 @@ jobs:
     name: Test
     strategy:
       matrix:
-        swift: [5.7.3, 5.8.1]
+        swift: [5.8.1]
         os: [ubuntu-20.04, macos-latest]
         target: [Library, Server]
     runs-on: ${{ matrix.os }}
