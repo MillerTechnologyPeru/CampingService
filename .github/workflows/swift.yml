@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         swift: [5.8.1]
-        os: [ubuntu-20.04, macos-latest]
+        os: [ubuntu-20.04]
         target: [Library, Server]
     runs-on: ${{ matrix.os }}
     steps:
