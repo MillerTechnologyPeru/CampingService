@@ -15,9 +15,19 @@ let package = Package(
             targets: ["CampingService"]
         ),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/colemancda/NetworkObjects.git",
+            branch: "master"
+        )
+    ],
     targets: [
         .target(
-            name: "CampingService"),
+            name: "CampingService",
+            dependencies: [
+                .product(name: "NetworkObjects", package: "NetworkObjects")
+            ]
+        ),
         .testTarget(
             name: "CampingServiceTests",
             dependencies: ["CampingService"]

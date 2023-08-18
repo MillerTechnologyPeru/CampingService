@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModel
 
 /// Location Coordinates
 public struct LocationCoordinates: Equatable, Hashable, Codable {
@@ -19,6 +20,31 @@ public struct LocationCoordinates: Equatable, Hashable, Codable {
     public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
+    }
+}
+
+// MARK: - CoreModel
+
+extension LocationCoordinates: AttributeEncodable {
+    
+    public var attributeValue: AttributeValue {
+        return .string("\(latitude),\(longitude)")
+    }
+}
+
+extension LocationCoordinates: AttributeDecodable {
+    
+    public init?(attributeValue: AttributeValue) {
+        guard let string = String(attributeValue: attributeValue) else {
+            return nil
+        }
+        let components = string.components(separatedBy: ",")
+        guard components.count == 2,
+            let latitude = Double(components[0]),
+            let longitude = Double(components[1]) else {
+            return nil
+        }
+        self.init(latitude: latitude, longitude: longitude)
     }
 }
 
