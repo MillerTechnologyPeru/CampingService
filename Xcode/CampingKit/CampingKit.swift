@@ -8,4 +8,6 @@
 import Foundation
 import Combine
 import SwiftUI
+@_exported import CoreModel
+@_exported import NetworkObjects
 @_exported import CampingService

@@ -14,7 +14,7 @@
 		6E2CF99B2A8C5C4100811090 /* CampingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */; };
 		6E2CF99C2A8C5C4100811090 /* CampingKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E2CF9A22A8C5C4E00811090 /* CampingKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */; };
-		6E2CF9A72A8C5CFE00811090 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9A62A8C5CFE00811090 /* DeviceKit */; };
+		6E2CF9A72A8C5CFE00811090 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 6E2CF9A62A8C5CFE00811090 /* DeviceKit */; };
 		6E2CF9AA2A8C5D2200811090 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9A92A8C5D2200811090 /* KeychainAccess */; };
 		6E2CF9AD2A8C5DC800811090 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9AC2A8C5DC800811090 /* SFSafeSymbols */; };
 		6E2CF9B32A8C5F3900811090 /* CampingService in Frameworks */ = {isa = PBXBuildFile; productRef = 6E2CF9B22A8C5F3900811090 /* CampingService */; };

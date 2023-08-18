@@ -18,7 +18,7 @@ import UIKit
 @main
 struct CampingApp: App {
     
-    static let store = Store(server: .localhost(port: 8080))
+    static let store = Store(server: URL(string: "http://localhost:8080")!)
     
     #if os(macOS)
     @NSApplicationDelegateAdaptor(AppDelegate.self)

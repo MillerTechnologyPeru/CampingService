@@ -14,7 +14,7 @@ public final class Store: ObservableObject {
     
     // MARK: - Properties
     
-    public let server: CampingServer
+    public let server: URL
     
     internal let isKeychainEnabled: Bool
     
@@ -32,7 +32,7 @@ public final class Store: ObservableObject {
     
     // MARK: - Initialization
     
-    public init(server: CampingServer) {
+    public init(server: URL) {
         self.server = server
         #if KEYCHAIN
         self.isKeychainEnabled = true
@@ -43,7 +43,7 @@ public final class Store: ObservableObject {
     
     internal init(
         isKeychainEnabled: Bool,
-        server: CampingServer
+        server: URL
     ) {
         self.server = server
         self.isKeychainEnabled = isKeychainEnabled
@@ -52,7 +52,7 @@ public final class Store: ObservableObject {
     #if DEBUG
     internal static let preview = Store(
         isKeychainEnabled: false,
-        server: .localhost(port: 8080)
+        server: URL(string: "http://localhost:8080")!
     )
     #endif
     

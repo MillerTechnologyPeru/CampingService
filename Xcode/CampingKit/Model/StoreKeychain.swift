@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkObjects
 import CampingService
 import KeychainAccess
 
@@ -106,7 +107,7 @@ internal extension Store {
         let keychain: CredentialStorage
         if isKeychainEnabled {
             keychain = Keychain(
-                server: self.server.rawValue,
+                server: self.server,
                 protocolType: .https,
                 accessGroup: nil,
                 authenticationType: .default

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkObjects
 import CampingService
 
 internal extension Store {
@@ -22,7 +23,7 @@ private extension Store {
             let token = self[token: user] else {
             self.username = nil
             try await self.tokenKeychain.removeAll()
-            throw CampingError.authenticationRequired
+            throw NetworkObjectsError.authenticationRequired
         }
         return token
     }
@@ -56,12 +57,12 @@ internal extension Store {
     
     func refreshAuthorizationToken() async throws {
         guard let username = self.username else {
-            throw CampingError.authenticationRequired
+            throw NetworkObjectsError.authenticationRequired
         }
         // remove invalid token
         await setToken(nil, for: username)
         guard let password = self[password: username] else {
-            throw CampingError.authenticationRequired
+            throw NetworkObjectsError.authenticationRequired
         }
         // login again for new token
         try await login(username: username, password: password)
