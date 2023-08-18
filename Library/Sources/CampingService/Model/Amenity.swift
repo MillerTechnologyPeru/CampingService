@@ -38,9 +38,7 @@ public enum Amenity: String, Codable, CaseIterable {
 extension Array: AttributeEncodable where Self.Element == Amenity  {
     
     public var attributeValue: AttributeValue {
-        let encoder = JSONEncoder()
-        let data = try! encoder.encode(self)
-        let string = String(data: data, encoding: .utf8)!
+        let string = self.reduce("", { $0 + ($0.isEmpty ? "" : ",") + $1.rawValue })
         return .string(string)
     }
 }
@@ -51,11 +49,15 @@ extension Array: AttributeDecodable where Self.Element == Amenity  {
         guard let string = String(attributeValue: attributeValue) else {
             return nil
         }
-        let data = Data(string.utf8)
-        let decoder = JSONDecoder()
-        guard let value = try? decoder.decode(Self.self, from: data) else {
-            return nil
+        let components = string.components(separatedBy: ",")
+        var values = [Amenity]()
+        values.reserveCapacity(components.count)
+        for element in components {
+            guard let value = Self.Element(rawValue: element) else {
+                return nil
+            }
+            values.append(value)
         }
-        self = value
+        self = values
     }
 }
