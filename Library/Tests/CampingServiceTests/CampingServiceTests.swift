@@ -37,4 +37,13 @@ final class CampingServiceTests: XCTestCase {
         XCTAssertEqual(CLLocationCoordinate2D(location: location).longitude, coreLocationValue.longitude)
         #endif
     }
+    
+    func testSchedule() {
+        
+        let schedudule = Schedule(start: 60 * 8, end: 60 * 16)
+        
+        let expectedValue = AttributeValue.string("480,960")
+        XCTAssertEqual(schedudule.attributeValue, expectedValue)
+        XCTAssertEqual(Schedule(attributeValue: expectedValue), schedudule)
+    }
 }
