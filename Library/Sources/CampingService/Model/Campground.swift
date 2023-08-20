@@ -91,9 +91,9 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     }
 }
 
-// MARK: - NetworkObjects
+// MARK: - CoreModel
 
-extension Campground: NetworkEntity {
+extension Campground: Entity {
     
     public static var entityName: EntityName { "Campground" }
     
@@ -102,7 +102,15 @@ extension Campground: NetworkEntity {
             .name : .string,
             .created : .date,
             .updated : .date,
-            .address : .string
+            .address : .string,
+            .location: .string,
+            .amenities: .string,
+            .phoneNumber: .string,
+            .descriptionText: .string,
+            .timeZone: .int32,
+            .notes: .string,
+            .directions: .string,
+            .officeHours: .string
         ]
     }
     
@@ -111,15 +119,16 @@ extension Campground: NetworkEntity {
             .units : Relationship(
                 id: PropertyKey(CodingKeys.units),
                 type: .toMany,
-                destinationEntity: "RentalUnit",
-                inverseRelationship: "campground"
+                destinationEntity: RentalUnit.entityName,
+                inverseRelationship: PropertyKey(RentalUnit.CodingKeys.campground)
             )
         ]
     }
-    
-    public init(from model: CoreModel.ModelData) throws {
-        fatalError()
-    }
+}
+
+// MARK: - NetworkObjects
+
+extension Campground: NetworkEntity {
     
     public typealias CreateView = Content
     
