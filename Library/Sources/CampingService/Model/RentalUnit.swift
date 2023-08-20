@@ -53,9 +53,7 @@ public struct RentalUnit: Equatable, Hashable, Codable, Identifiable {
 // MARK: - CoreModel
 
 extension RentalUnit: Entity {
-    
-    public static var entityName: EntityName { "RentalUnit" }
-    
+        
     public static var attributes: [CodingKeys: AttributeType] {
         [
             .name : .string,

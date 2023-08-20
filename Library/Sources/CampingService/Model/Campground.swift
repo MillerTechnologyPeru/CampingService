@@ -94,9 +94,7 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
 // MARK: - CoreModel
 
 extension Campground: Entity {
-    
-    public static var entityName: EntityName { "Campground" }
-    
+        
     public static var attributes: [CodingKeys: AttributeType] {
         [
             .name : .string,
