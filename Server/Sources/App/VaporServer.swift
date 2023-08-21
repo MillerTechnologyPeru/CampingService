@@ -16,14 +16,14 @@ extension Vapor.Application: NetworkObjectsServer {
     
     public typealias Response = Vapor.Response
             
-    public func register<T: VaporEntityRequestController>(_ controller: T) throws {
+    public func register<T: VaporEntityController>(_ controller: T) throws {
         try self.register(collection: controller)
     }
 }
 
-public protocol VaporEntityRequestController: RouteCollection, NetworkEntityController where Self.Server == Vapor.Application, Entity: AsyncResponseEncodable { }
+public protocol VaporEntityController: RouteCollection, NetworkEntityController where Self.Server == Vapor.Application, Entity: AsyncResponseEncodable { }
 
-public extension VaporEntityRequestController {
+public extension VaporEntityController {
     
     func boot(routes: RoutesBuilder) throws {
         let groupName = Self.Entity.entityName.rawValue.lowercased()
@@ -37,7 +37,7 @@ public extension VaporEntityRequestController {
     }
 }
 
-internal extension VaporEntityRequestController {
+internal extension VaporEntityController {
     
     func create(_ request: Server.Request) async throws -> Entity {
         let createValue = try request.content.decode(Entity.CreateView.self)

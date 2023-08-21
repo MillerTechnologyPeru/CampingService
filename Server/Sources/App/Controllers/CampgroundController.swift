@@ -13,7 +13,7 @@ import CampingService
 import MongoSwift
 import MongoDBModel
 
-struct CampgroundController: VaporEntityRequestController {
+struct CampgroundController: VaporEntityController {
     
     let database: MongoModelStorage
     
