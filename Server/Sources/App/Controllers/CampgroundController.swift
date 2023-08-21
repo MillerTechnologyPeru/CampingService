@@ -6,72 +6,58 @@
 //
 
 import Foundation
-import Fluent
 import Vapor
+import CoreModel
+import NetworkObjects
 import CampingService
+import MongoSwift
+import MongoDBModel
 
-struct CampgroundController: RouteCollection {
+struct CampgroundController: VaporEntityRequestController {
     
-    func boot(routes: RoutesBuilder) throws {
-        let campgrounds = routes.grouped("campground")
-        campgrounds.get(use: index)
-        //campgrounds.put(use: edit)
-        campgrounds.post(use: create)
-        campgrounds.group(":campgroundID") { model in
-            model.delete(use: delete)
-        }
-    }
+    let database: MongoModelStorage
     
-    func index(req: Request) async throws -> [Campground] {
-        try await CampgroundModel
-            .query(on: req.db)
-            .all()
-            .map { Campground(fluent: $0) }
-    }
-    
-    func create(req: Request) async throws -> Campground {
-        let request = try req.content.decode(CreateCampgroundRequest.Content.self)
-        let newModel = CampgroundModel(
-            name: request.name,
-            address: request.address,
-            location: request.location,
-            amenities: request.amenities,
-            phoneNumber: request.phoneNumber,
-            descriptionText: request.descriptionText,
-            notes: request.notes,
-            directions: request.directions,
-            timeZone: request.timeZone,
-            officeHours: request.officeHours
+    func create(
+        _ newValue: Campground.CreateView,
+        request: Vapor.Request
+    ) async throws -> Campground {
+        let campground = Campground(
+            name: newValue.name,
+            address: newValue.address,
+            location: newValue.location,
+            amenities: newValue.amenities,
+            phoneNumber: newValue.phoneNumber,
+            descriptionText: newValue.descriptionText,
+            notes: newValue.notes,
+            directions: newValue.directions,
+            timeZone: newValue.timeZone,
+            officeHours: newValue.officeHours
         )
-        try await newModel.save(on: req.db)
-        let response = Campground(fluent: newModel)
-        return response
+        try await database.insert(campground)
+        return campground
     }
-    /*
-    func edit(req: Request) async throws -> Campground {
-        let request = try req.content.decode(EditCampgroundRequest.Content.self)
-        let newModel = CampgroundModel(
-            name: request.name,
-            address: request.address,
-            location: request.location,
-            amenities: request.amenities,
-            phoneNumber: request.phoneNumber,
-            descriptionText: request.descriptionText,
-            notes: request.notes,
-            directions: request.directions,
-            timeZone: request.timeZone,
-            officeHours: request.officeHours
-        )
-        try await newModel.save(on: req.db)
-        let response = Campground(fluent: newModel)
-        return response
-    }
-    */
-    func delete(req: Request) async throws -> HTTPStatus {
-        guard let model = try await CampgroundModel.find(req.parameters.get("campgroundID"), on: req.db) else {
+    
+    func edit(
+        _ newValue: Campground.EditView,
+        for id: Campground.ID,
+        request: Vapor.Request
+    ) async throws -> Campground {
+        // fetch existing
+        guard var campground = try await database.fetch(Campground.self, for: id) else {
             throw Abort(.notFound)
         }
-        try await model.delete(on: req.db)
-        return .noContent
+        // apply changes
+        campground.name = newValue.name
+        campground.address = newValue.address
+        campground.location = newValue.location
+        campground.amenities = newValue.amenities
+        campground.phoneNumber = newValue.phoneNumber
+        campground.descriptionText = newValue.descriptionText
+        campground.notes = newValue.notes
+        campground.directions = newValue.directions
+        campground.timeZone = newValue.timeZone
+        campground.officeHours = newValue.officeHours
+        // return updated value
+        return campground
     }
 }

@@ -8,23 +8,25 @@ let package = Package(
        .iOS(.v15)
     ],
     dependencies: [
-        // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.77.1"),
-        // 🗄 An ORM for SQL and NoSQL databases.
-        .package(url: "https://github.com/vapor/fluent.git", from: "4.8.0"),
-        // ὁ8 Fluent driver for Postgres.
-        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.7.2"),
-        // Shared Code
-        .package(path: "../Library")
+        .package(
+            path: "../Library"
+        ),
+        .package(
+            url: "https://github.com/vapor/vapor.git",
+            from: "4.77.1"
+        ),
+        .package(
+            url: "https://github.com/PureSwift/coremodel-mongodb",
+            branch: "master"
+        )
     ],
     targets: [
         .executableTarget(
             name: "CampingServer",
             dependencies: [
-                .product(name: "Fluent", package: "fluent"),
-                .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Vapor", package: "vapor"),
-                .product(name: "CampingService", package: "Library")
+                .product(name: "CampingService", package: "Library"),
+                .product(name: "MongoDBModel", package: "coremodel-mongodb"),
             ],
             path: "Sources/App"
         ),
