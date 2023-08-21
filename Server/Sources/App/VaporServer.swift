@@ -28,20 +28,21 @@ public extension VaporEntityRequestController {
     func boot(routes: RoutesBuilder) throws {
         let groupName = Self.Entity.entityName.rawValue.lowercased()
         let routeGroup = routes.grouped("\(groupName)")
-        //routeGroup.post(use: create)
+        routeGroup.post(use: create)
         routeGroup.group(":id") { model in
             model.get(use: fetch)
-        }
-        routeGroup.group(":id") { model in
             model.put(use: edit)
-        }
-        routeGroup.group(":id") { model in
             model.delete(use: delete)
         }
     }
 }
 
 internal extension VaporEntityRequestController {
+    
+    func create(_ request: Server.Request) async throws -> Entity {
+        let createValue = try request.content.decode(Entity.CreateView.self)
+        return try await create(createValue, request: request)
+    }
     
     func fetch(_ request: Request) async throws -> Entity {
         guard let id = request.parameters.get("id").flatMap({ Entity.ID(objectID: ObjectID(rawValue: $0)) }) else {
@@ -58,8 +59,7 @@ internal extension VaporEntityRequestController {
             throw Abort(.notFound)
         }
         let editValue = try request.content.decode(Entity.EditView.self)
-        let value = try await edit(editValue, for: id, request: request)
-        return value
+        return try await edit(editValue, for: id, request: request)
     }
     
     func delete(_ request: Request) async throws -> HTTPStatus {
