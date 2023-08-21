@@ -6,7 +6,7 @@
       "location" : "https://github.com/PureSwift/CoreModel.git",
       "state" : {
         "branch" : "master",
-        "revision" : "a43c9d4febd48bf437b7f5d6d32e9362aa20bd62"
+        "revision" : "078260898c7d22db409bbd944076928a5920edd8"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/colemancda/NetworkObjects.git",
       "state" : {
         "branch" : "master",
-        "revision" : "b1d35823b06f47558308b967ec153fdd9eb6126f"
+        "revision" : "286cb9ca94268492e3bd3730a10cb99c9c8bc710"
       }
     },
     {
