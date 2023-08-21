@@ -28,6 +28,7 @@ public extension VaporEntityController {
     func boot(routes: RoutesBuilder) throws {
         let groupName = Self.Entity.entityName.rawValue.lowercased()
         let routeGroup = routes.grouped("\(groupName)")
+        routeGroup.get(use: query)
         routeGroup.post(use: create)
         routeGroup.group(":id") { model in
             model.get(use: fetch)
@@ -54,6 +55,19 @@ internal extension VaporEntityController {
         return value
     }
     
+    func query(_ request: Request) async throws -> [String] {
+        let queryItems = try request.query.decode(VaporQuery.self)
+        let query = QueryRequest<Entity>(
+            query: queryItems.search,
+            sort: queryItems.sort.flatMap { Entity.CodingKeys.init(stringValue: $0) },
+            ascending: queryItems.asc,
+            limit: queryItems.limit,
+            offset: queryItems.offset
+        )
+        return try await self.query(query, request: request)
+            .map { $0.description }
+    }
+    
     func edit(_ request: Request) async throws -> Entity {
         guard let id = request.parameters.get("id").flatMap({ Entity.ID(objectID: ObjectID(rawValue: $0)) }) else {
             throw Abort(.notFound)
@@ -71,4 +85,12 @@ internal extension VaporEntityController {
         }
         return .noContent
     }
+}
+
+internal struct VaporQuery: Content {
+    var search: String?
+    var sort: String?
+    var asc: Bool?
+    var limit: UInt?
+    var offset: UInt?
 }

@@ -60,4 +60,17 @@ struct CampgroundController: VaporEntityController {
         // return updated value
         return campground
     }
+    
+    func query(_ queryRequest: QueryRequest<Campground>, request: Request) async throws -> [Campground.ID] {
+        
+        let results = try await database.fetch(
+            Entity.self,
+            sortDescriptors: queryRequest.sort.flatMap { [FetchRequest.SortDescriptor(property: PropertyKey($0), ascending: queryRequest.ascending ?? true)] } ?? [],
+            predicate: queryRequest.query.map { Campground.CodingKeys.name.stringValue.compare(.contains, .attribute(.string($0))) },
+            fetchLimit: queryRequest.limit.map { Int($0) } ?? 0,
+            fetchOffset: queryRequest.offset.map { Int($0) } ?? 0
+        )
+        // TODO: Fetch object IDs
+        return results.map { $0.id }
+    }
 }
