@@ -43,8 +43,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     
     public init(
         id: UUID = UUID(),
-        created: Date,
-        updated: Date,
+        created: Date = Date(),
+        updated: Date = Date(),
         name: String,
         address: String,
         location: LocationCoordinates,
