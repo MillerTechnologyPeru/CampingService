@@ -43,19 +43,38 @@ internal extension CampgroundDetailView {
         
         var body: some View {
             List {
-                NavigationLink(destination: {
-                    CampgroundMapView(campground: campground)
-                }, label: {
-                    Text(verbatim: campground.address)
-                })
-                if let phoneNumber = campground.phoneNumber {
-                    Text(verbatim: phoneNumber)
+                // Address
+                HStack {
+                    Image(systemSymbol: .map)
+                        .frame(minWidth: 30)
+                    NavigationLink(destination: {
+                        CampgroundMapView(campground: campground)
+                    }, label: {
+                        Text(verbatim: campground.address)
+                    })
                 }
+                
+                // Phone Number
+                if let phoneNumber = campground.phoneNumber,
+                   let url = URL(string: "tel://" + phoneNumber) {
+                    HStack {
+                        Image(systemSymbol: .phone)
+                            .frame(minWidth: 30)
+                        Link(destination: url, label: {
+                            Text(verbatim: phoneNumber)
+                        })
+                    }
+                }
+                
+                // Office Hours
+                HStack {
+                    Image(systemSymbol: .clock)
+                        .frame(minWidth: 30)
+                    Text(verbatim: officeHours)
+                }
+                
+                // Text
                 Text(verbatim: campground.descriptionText)
-                if let directions = campground.directions {
-                    Text(verbatim: directions)
-                }
-                Text(verbatim: officeHours)
                 
                 // Amenities
                 if campground.amenities.isEmpty == false {
@@ -63,10 +82,21 @@ internal extension CampgroundDetailView {
                         ForEach(campground.amenities, id: \.rawValue) { amenity in
                             HStack {
                                 AmenityIcon(amenity: amenity)
-                                    .frame(width: 30)
+                                    .frame(minWidth: 30)
                                 Text(amenity.localizedDescription)
                             }
                         }
+                    }
+                }
+                
+                if let directions = campground.directions {
+                    Section("Directions") {
+                        Text(verbatim: directions)
+                    }
+                }
+                if let notes = campground.notes {
+                    Section("Notes") {
+                        Text(verbatim: notes)
                     }
                 }
             }

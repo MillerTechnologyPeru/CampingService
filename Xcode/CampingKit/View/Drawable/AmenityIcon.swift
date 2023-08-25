@@ -40,7 +40,7 @@ public extension AmenityIcon {
         case .laundry:
             return .secondary
         case .mail:
-            return .secondary
+            return .primary
         case .dumpStation:
             return .primary
         case .picnicArea:
