@@ -18,7 +18,7 @@ public extension Store {
         }
         do {
             for try await store in persistentContainer.loadPersistentStores() {
-                log("Loaded CoreData store \(store.url?.absoluteString ?? "")")
+                log("Loaded CoreData store \(store.url?.absoluteString ?? "")", category: .persistence)
             }
             didLoadPersistentStores = true
         }
