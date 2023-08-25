@@ -6,7 +6,7 @@
       "location" : "https://github.com/PureSwift/CoreModel.git",
       "state" : {
         "branch" : "master",
-        "revision" : "078260898c7d22db409bbd944076928a5920edd8"
+        "revision" : "557a4c29b5016eda3482c07f115dc3c0e7f35cdf"
       }
     },
     {
@@ -33,16 +33,7 @@
       "location" : "https://github.com/colemancda/NetworkObjects.git",
       "state" : {
         "branch" : "master",
-        "revision" : "286cb9ca94268492e3bd3730a10cb99c9c8bc710"
-      }
-    },
-    {
-      "identity" : "predicate",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/PureSwift/Predicate.git",
-      "state" : {
-        "branch" : "master",
-        "revision" : "ba07f7523b15ddd0c54ea717b9429ac294d5955b"
+        "revision" : "b4e146ef9a3e4063e4bd93d142d0eefffc94d782"
       }
     },
     {
