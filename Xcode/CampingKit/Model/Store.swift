@@ -7,6 +7,9 @@
 
 import Foundation
 import Combine
+import CoreData
+import CoreModel
+import NetworkObjects
 import CampingService
 
 @MainActor
@@ -29,6 +32,21 @@ public final class Store: ObservableObject {
     internal lazy var tokenKeychain = loadTokenKeychain()
     
     internal lazy var urlSession = loadURLSession()
+    
+    internal lazy var networkObjects = NetworkStore<URLSession>(
+        server: server,
+        client: urlSession,
+        encoder: .camping,
+        decoder: .camping
+    )
+    
+    public lazy var persistentContainer = loadPersistentContainer()
+    
+    public lazy var managedObjectContext = loadViewContext()
+    
+    internal lazy var backgroundContext = loadBackgroundContext()
+    
+    internal var didLoadPersistentStores = false
     
     // MARK: - Initialization
     
