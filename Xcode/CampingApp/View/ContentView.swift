@@ -10,7 +10,19 @@ import CampingKit
 
 struct ContentView: View {
     
+    @EnvironmentObject
+    private var store: Store
+    
     var body: some View {
+        content
+            .onAppear {
+                Task {
+                    await store.loadPersistentStores()
+                }
+            }
+    }
+    
+    var content: some View {
         #if os(iOS)
         CampingTabView()
         #elseif os(tvOS)
