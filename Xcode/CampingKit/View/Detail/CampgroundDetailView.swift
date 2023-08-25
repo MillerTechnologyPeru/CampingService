@@ -74,7 +74,7 @@ internal extension CampgroundDetailView {
 internal extension CampgroundDetailView.ContentView {
     
     var officeHours: String {
-        let officeHours = campground.officeHours.localizedString()
+        let officeHours = campground.officeHours.localizedDescription()
         return "\(officeHours.start) - \(officeHours.end)"
     }
 }
