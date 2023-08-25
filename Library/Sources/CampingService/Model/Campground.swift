@@ -20,6 +20,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     
     public var name: String
     
+    public var image: URL?
+    
     public var address: String
     
     public var location: LocationCoordinates
@@ -27,6 +29,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     public var amenities: [Amenity]
     
     public var phoneNumber: String?
+    
+    public var email: String?
     
     public var descriptionText: String
     
@@ -46,10 +50,12 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         created: Date = Date(),
         updated: Date = Date(),
         name: String,
+        image: URL? = nil,
         address: String,
         location: LocationCoordinates,
         amenities: [Amenity] = [],
         phoneNumber: String? = nil,
+        email: String? = nil,
         descriptionText: String,
         notes: String? = nil,
         directions: String? = nil,
@@ -61,10 +67,12 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         self.created = created
         self.updated = updated
         self.name = name
+        self.image = image
         self.address = address
         self.location = location
         self.amenities = amenities
         self.phoneNumber = phoneNumber
+        self.email = email
         self.descriptionText = descriptionText
         self.notes = notes
         self.directions = directions
@@ -88,6 +96,8 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
         case directions
         case units
         case officeHours
+        case image
+        case email
     }
 }
 
@@ -108,7 +118,9 @@ extension Campground: Entity {
             .timeZone: .int32,
             .notes: .string,
             .directions: .string,
-            .officeHours: .string
+            .officeHours: .string,
+            .email: .string,
+            .image: .url
         ]
     }
     
@@ -136,6 +148,8 @@ extension Campground: NetworkEntity {
         
         public var name: String
         
+        public var image: URL?
+        
         public var address: String
         
         public var location: LocationCoordinates
@@ -143,6 +157,8 @@ extension Campground: NetworkEntity {
         public var amenities: [Amenity]
         
         public var phoneNumber: String?
+        
+        public var email: String?
         
         public var descriptionText: String
         
@@ -157,10 +173,12 @@ extension Campground: NetworkEntity {
         
         public init(
             name: String,
+            image: URL? = nil,
             address: String,
             location: LocationCoordinates,
             amenities: [Amenity] = [],
             phoneNumber: String? = nil,
+            email: String? = nil,
             descriptionText: String,
             notes: String? = nil,
             directions: String? = nil,
@@ -168,10 +186,12 @@ extension Campground: NetworkEntity {
             officeHours: Schedule
         ) {
             self.name = name
+            self.image = image
             self.address = address
             self.location = location
             self.amenities = amenities
             self.phoneNumber = phoneNumber
+            self.email = email
             self.descriptionText = descriptionText
             self.notes = notes
             self.directions = directions

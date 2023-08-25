@@ -25,7 +25,7 @@ public extension Amenity {
         case .laundry:
             return .washerFill
         case .mail:
-            return .mail
+            return .envelopeFill
         case .dumpStation:
             return .pipeAndDrop
         case .picnicArea:

@@ -43,38 +43,68 @@ internal extension CampgroundDetailView {
         
         var body: some View {
             List {
-                // Address
-                HStack {
-                    Image(systemSymbol: .map)
-                        .frame(minWidth: 30)
-                    NavigationLink(destination: {
-                        CampgroundMapView(campground: campground)
-                    }, label: {
-                        Text(verbatim: campground.address)
-                    })
-                }
                 
-                // Phone Number
-                if let phoneNumber = campground.phoneNumber,
-                   let url = URL(string: "tel://" + phoneNumber) {
+                Section(content: {
+                    
+                    // Address
                     HStack {
-                        Image(systemSymbol: .phone)
+                        Image(systemSymbol: .map)
                             .frame(minWidth: 30)
-                        Link(destination: url, label: {
-                            Text(verbatim: phoneNumber)
+                        NavigationLink(destination: {
+                            CampgroundMapView(campground: campground)
+                        }, label: {
+                            Text(verbatim: campground.address)
                         })
                     }
-                }
+                    
+                    // Phone Number
+                    if let phoneNumber = campground.phoneNumber,
+                       let url = URL(string: "tel://" + phoneNumber) {
+                        HStack {
+                            Image(systemSymbol: .phone)
+                                .frame(minWidth: 30)
+                            Link(destination: url, label: {
+                                Text(verbatim: phoneNumber)
+                            })
+                        }
+                    }
+                    
+                    if let email = campground.email,
+                       let url = URL(string: "mailto://" + email) {
+                        HStack {
+                            Image(systemSymbol: .envelope)
+                                .frame(minWidth: 30)
+                            Link(destination: url, label: {
+                                Text(verbatim: email)
+                            })
+                        }
+                    }
+                    
+                    // Office Hours
+                    HStack {
+                        Image(systemSymbol: .clock)
+                            .frame(minWidth: 30)
+                        Text(verbatim: officeHours)
+                    }
+                    
+                    // Text
+                    Text(verbatim: campground.descriptionText)
+                    
+                }, header: {
+                    if let url = campground.image {
+                        CachedAsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .imageScale(.medium)
+                                .cornerRadius(10)
+                                .padding(.bottom, 15)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    }
+                })
                 
-                // Office Hours
-                HStack {
-                    Image(systemSymbol: .clock)
-                        .frame(minWidth: 30)
-                    Text(verbatim: officeHours)
-                }
-                
-                // Text
-                Text(verbatim: campground.descriptionText)
                 
                 // Amenities
                 if campground.amenities.isEmpty == false {
@@ -131,10 +161,12 @@ struct CampgroundDetailView_Preview: PreviewProvider {
     
     static let campground = Campground(
             name: "Lake Hartwell RV Park",
+            image: URL(string: "https://img1.wsimg.com/isteam/ip/b093c9e9-5e8a-4308-95f9-9ed306268f26/100.JPG/:/rs=w:1968,h:1476")!,
             address: "14503 SC-11, Westminster, SC 29693",
             location: .init(latitude: 34.51446212994721, longitude: -83.01371101951648),
             amenities: [.water, .amp50, .amp30, .laundry, .wifi, .picnicArea, .pets],
             phoneNumber: "8649720555",
+            email: "lkhtwlrvpark@outlook.com",
             descriptionText: """
             Our RV Park is designed with you in mind. We've focused our time and energy on keeping our site clean, safe, and fun. Our laidback atmosphere will make your visit with us as enjoyable and relaxing as possible. We hope that our park will make you want to stay with us each and every time you travel to South Carolina.
             """,
