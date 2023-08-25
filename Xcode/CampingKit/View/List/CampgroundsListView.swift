@@ -17,6 +17,8 @@ public struct CampgroundsListView: View {
     @EnvironmentObject
     private var store: Store
     
+    public init() { }
+    
     public var body: some View {
         EntityQueryListView(
             data: loadCachedData(),
@@ -40,7 +42,7 @@ public struct CampgroundsListView: View {
                     Text(verbatim: error.localizedDescription)
                     Spacer()
                     Button("Retry") {
-                        
+                        reloadData()
                     }
                 }
             },
@@ -59,6 +61,7 @@ public struct CampgroundsListView: View {
                 }
             }
         )
+        .navigationTitle("Campgrounds")
     }
 }
 
@@ -76,3 +79,17 @@ private extension CampgroundsListView {
         
     }
 }
+
+#if DEBUG
+
+struct CampgroundsListView_Preview: PreviewProvider {
+    
+    static var previews: some View {
+        NavigationView {
+            CampgroundsListView()
+        }
+        .environmentObject(Store.preview)
+    }
+}
+
+#endif
