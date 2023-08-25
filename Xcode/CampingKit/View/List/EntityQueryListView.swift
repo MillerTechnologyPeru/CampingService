@@ -133,12 +133,20 @@ internal extension EntityQueryListView {
         self.task?.cancel()
         // start loading
         self.task = Task(priority: .userInitiated) {
+            let newState: ViewState
+            let sleepTask = Task {
+                try await Task.sleep(for: .seconds(1))
+            }
             do {
                 let objectIDs = try await store.query(queryRequest)
-                self.state = .success(objectIDs)
+                try await sleepTask.value
+                newState = .success(objectIDs)
             } catch {
-                self.state = .failure(error)
+                newState = .failure(error)
             }
+            // delay in showing data
+            try? await sleepTask.value
+            self.state = newState
         }
         await task?.value
     }
