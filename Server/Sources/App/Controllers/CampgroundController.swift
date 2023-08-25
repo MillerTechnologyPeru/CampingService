@@ -23,10 +23,12 @@ struct CampgroundController: VaporEntityController {
     ) async throws -> Campground {
         let campground = Campground(
             name: newValue.name,
+            image: newValue.image,
             address: newValue.address,
             location: newValue.location,
             amenities: newValue.amenities,
             phoneNumber: newValue.phoneNumber,
+            email: newValue.email,
             descriptionText: newValue.descriptionText,
             notes: newValue.notes,
             directions: newValue.directions,
@@ -48,10 +50,12 @@ struct CampgroundController: VaporEntityController {
         }
         // apply changes
         campground.name = newValue.name
+        campground.image = newValue.image
         campground.address = newValue.address
         campground.location = newValue.location
         campground.amenities = newValue.amenities
         campground.phoneNumber = newValue.phoneNumber
+        campground.email = newValue.email
         campground.descriptionText = newValue.descriptionText
         campground.notes = newValue.notes
         campground.directions = newValue.directions
@@ -63,14 +67,14 @@ struct CampgroundController: VaporEntityController {
     
     func query(_ queryRequest: QueryRequest<Campground>, request: Request) async throws -> [Campground.ID] {
         
-        let results = try await database.fetch(
-            Entity.self,
+        let fetchRequest = FetchRequest(
+            entity: Campground.entityName,
             sortDescriptors: queryRequest.sort.flatMap { [FetchRequest.SortDescriptor(property: PropertyKey($0), ascending: queryRequest.ascending ?? true)] } ?? [],
             predicate: queryRequest.query.map { Campground.CodingKeys.name.stringValue.compare(.contains, .attribute(.string($0))) },
             fetchLimit: queryRequest.limit.map { Int($0) } ?? 0,
             fetchOffset: queryRequest.offset.map { Int($0) } ?? 0
         )
-        // TODO: Fetch object IDs
-        return results.map { $0.id }
+        let results = try await database.fetchID(fetchRequest)
+        return results.map { .init(objectID: $0)! }
     }
 }
