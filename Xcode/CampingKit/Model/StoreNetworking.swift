@@ -74,26 +74,26 @@ extension Store: ObjectStore {
     
     public func fetch<T: NetworkEntity>(_ type: T.Type, for id: T.ID) async throws -> T {
         let value = try await networkObjects.fetch(type, for: id)
-        let modelData = try value.encode()
         try await commit { context in
+            let modelData = try value.encode()
             try context.insert(modelData)
         }
         return value
     }
     
-    public func create<T: NetworkEntity>(_ type: T.CreateView) async throws -> T {
-        let newValue = try await networkObjects.create(type)
-        let modelData = try newValue.encode()
+    public func create<T: NetworkEntity>(_ value: T.CreateView) async throws -> T {
+        let newValue = try await networkObjects.create(value) as T
         try await commit { context in
+            let modelData = try newValue.encode()
             try context.insert(modelData)
         }
         return newValue
     }
     
     public func edit<T: NetworkEntity>(_ value: T.EditView, for id: T.ID) async throws -> T {
-        let newValue = try await networkObjects.edit(value, for: id)
-        let modelData = try newValue.encode()
+        let newValue = try await networkObjects.edit(value, for: id) as T
         try await commit { context in
+            let modelData = try newValue.encode()
             try context.insert(modelData)
         }
         return newValue
