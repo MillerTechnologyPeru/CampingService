@@ -26,11 +26,12 @@ public extension Store {
         _ error: Error,
         category: LogCategory = .app,
         file: StaticString = #file,
+        line: Int = #line,
         function: StaticString = #function
     ) {
         let message: String
         #if DEBUG
-        message = "⚠️ " + error.localizedDescription + String(file) + String(function)
+        message = "⚠️ " + error.localizedDescription + " \(file):\(line):\(function)"
         #else
         message = "⚠️ " + error.localizedDescription
         #endif

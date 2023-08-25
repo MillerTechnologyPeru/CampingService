@@ -50,6 +50,10 @@ public final class Store: ObservableObject {
     
     // MARK: - Initialization
     
+    deinit {
+        preferencesObserver?.cancel()
+    }
+    
     public init(server: URL) {
         self.server = server
         #if KEYCHAIN
@@ -68,13 +72,11 @@ public final class Store: ObservableObject {
     }
     
     #if DEBUG
-    internal static let preview = Store(
+    public static let preview = Store(
         isKeychainEnabled: false,
         server: URL(string: "http://localhost:8080")!
     )
     #endif
     
-    deinit {
-        preferencesObserver?.cancel()
-    }
+    
 }
