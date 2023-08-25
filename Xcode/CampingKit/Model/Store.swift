@@ -19,6 +19,8 @@ public final class Store: ObservableObject {
     
     public let server: URL
     
+    public let persistentStoreName: String
+    
     internal let isKeychainEnabled: Bool
     
     internal lazy var fileManager = FileManager()
@@ -46,6 +48,7 @@ public final class Store: ObservableObject {
     
     internal lazy var backgroundContext = loadBackgroundContext()
     
+    @Published
     internal var didLoadPersistentStores = false
     
     // MARK: - Initialization
@@ -54,8 +57,12 @@ public final class Store: ObservableObject {
         preferencesObserver?.cancel()
     }
     
-    public init(server: URL) {
+    public init(
+        server: URL,
+        persistentStoreName: String = "CampingKit"
+    ) {
         self.server = server
+        self.persistentStoreName = persistentStoreName
         #if KEYCHAIN
         self.isKeychainEnabled = true
         #else
@@ -65,16 +72,19 @@ public final class Store: ObservableObject {
     
     internal init(
         isKeychainEnabled: Bool,
-        server: URL
+        server: URL,
+        persistentStoreName: String = "CampingKit"
     ) {
         self.server = server
         self.isKeychainEnabled = isKeychainEnabled
+        self.persistentStoreName = persistentStoreName
     }
     
     #if DEBUG
     public static let preview = Store(
         isKeychainEnabled: false,
-        server: URL(string: "http://localhost:8080")!
+        server: URL(string: "http://localhost:8080")!,
+        persistentStoreName: "CampingKitPreview-\(UUID())"
     )
     #endif
     

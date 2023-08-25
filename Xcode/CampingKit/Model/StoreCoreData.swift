@@ -10,33 +10,7 @@ import CoreData
 import CoreModel
 import CoreDataModel
 
-internal extension Store {
-    
-    func loadPersistentContainer() -> NSPersistentContainer {
-        let container = NSPersistentContainer(
-            name: "CampingKit",
-            managedObjectModel: .init(model: .camping)
-        )
-        let storeDescription = NSPersistentStoreDescription(url: url(for: .cacheSqlite))
-        storeDescription.shouldInferMappingModelAutomatically = true
-        storeDescription.shouldMigrateStoreAutomatically = true
-        container.persistentStoreDescriptions = [storeDescription]
-        return container
-    }
-    
-    func loadViewContext() -> NSManagedObjectContext {
-        let context = self.persistentContainer.viewContext
-        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-        context.undoManager = nil
-        return context
-    }
-    
-    func loadBackgroundContext() -> NSManagedObjectContext {
-        let context = self.persistentContainer.newBackgroundContext()
-        context.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
-        context.undoManager = nil
-        return context
-    }
+public extension Store {
     
     func loadPersistentStores() async {
         guard didLoadPersistentStores == false else {
@@ -57,6 +31,38 @@ internal extension Store {
             // try again
             await loadPersistentStores()
         }
+    }
+}
+
+internal extension Store {
+    
+    func loadPersistentContainer() -> NSPersistentContainer {
+        guard let url = fileManager.cachesDirectory?.appendingPathComponent(persistentStoreName + ".sqlite") else {
+            fatalError("Missing caches directory")
+        }
+        let container = NSPersistentContainer(
+            name: persistentStoreName,
+            managedObjectModel: .init(model: .camping)
+        )
+        let storeDescription = NSPersistentStoreDescription(url: url)
+        storeDescription.shouldInferMappingModelAutomatically = true
+        storeDescription.shouldMigrateStoreAutomatically = true
+        container.persistentStoreDescriptions = [storeDescription]
+        return container
+    }
+    
+    func loadViewContext() -> NSManagedObjectContext {
+        let context = self.persistentContainer.viewContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        context.undoManager = nil
+        return context
+    }
+    
+    func loadBackgroundContext() -> NSManagedObjectContext {
+        let context = self.persistentContainer.newBackgroundContext()
+        context.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        context.undoManager = nil
+        return context
     }
     
     func commit(_ block: @escaping (NSManagedObjectContext) throws -> ()) async throws {
