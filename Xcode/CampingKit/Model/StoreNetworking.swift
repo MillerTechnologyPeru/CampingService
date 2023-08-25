@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModel
 import NetworkObjects
 import CampingService
 
@@ -27,30 +28,6 @@ private extension Store {
         }
         return token
     }
-    /*
-    func authorized<T>(
-        _ block: (AuthorizationToken) async throws -> T
-    ) async throws -> T {
-        // refresh token if logged in but missing token
-        if let username = self.username, self[token: username] == nil {
-            try await refreshAuthorizationToken()
-        }
-        let token = try await authorizationToken()
-        do {
-            return try await block(token)
-        }
-        catch {
-            if let networkError = error as? CampingError,
-                case .invalidStatusCode(401, _) = networkError {
-                try await refreshAuthorizationToken()
-                // retry once
-                let token = try await authorizationToken()
-                return try await block(token)
-            } else {
-                throw error
-            }
-        }
-    }*/
 }
 
 internal extension Store {
@@ -89,4 +66,47 @@ public extension Store {
         #endif*/
     }
     
+}
+
+// MARK: - ObjectStore
+
+extension Store: ObjectStore {
+    
+    public func fetch<T: NetworkEntity>(_ type: T.Type, for id: T.ID) async throws -> T {
+        let value = try await networkObjects.fetch(type, for: id)
+        let modelData = try value.encode()
+        try await commit { context in
+            try context.insert(modelData)
+        }
+        return value
+    }
+    
+    public func create<T: NetworkEntity>(_ type: T.CreateView) async throws -> T {
+        let newValue = try await networkObjects.create(type)
+        let modelData = try newValue.encode()
+        try await commit { context in
+            try context.insert(modelData)
+        }
+        return newValue
+    }
+    
+    public func edit<T: NetworkEntity>(_ value: T.EditView, for id: T.ID) async throws -> T {
+        let newValue = try await networkObjects.edit(value, for: id)
+        let modelData = try newValue.encode()
+        try await commit { context in
+            try context.insert(modelData)
+        }
+        return newValue
+    }
+    
+    public func delete<T: NetworkEntity>(_ type: T.Type, for id: T.ID) async throws {
+        try await networkObjects.delete(type, for: id)
+        try await commit { context in
+            try context.delete(type.entityName, for: ObjectID(id))
+        }
+    }
+    
+    public func query<T: NetworkEntity>(_ request: QueryRequest<T>) async throws -> [T.ID] {
+        try await networkObjects.query(request)
+    }
 }
