@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreModel
 import NetworkObjects
 import NetworkObjectsUI
 import CampingService
@@ -32,9 +33,12 @@ public struct CampgroundsListView: View {
             ascending: true,
             limit: 0,
             loadingContent: {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding(20)
+                VStack(alignment: .center, spacing: 8) {
+                    Text("Loading")
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .padding(20)
+                }
             },
             emptyContent: {
                 Text("No campgrounds found.")
@@ -50,12 +54,14 @@ public struct CampgroundsListView: View {
                 }
             },
             rowContent: { campground in
-                Text(verbatim: campground.name)
+                NavigationLink(destination: {
+                    CampgroundDetailView(campground: campground)
+                }, label: {
+                    CampgroundRowView(campground: campground)
+                })
             },
             rowPlaceholder: { id in
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .padding(20)
+                LoadingRowView()
             },
             rowError: { error in
                 VStack {
@@ -71,11 +77,33 @@ public struct CampgroundsListView: View {
 private extension CampgroundsListView {
     
     func loadCachedData() -> [Campground.ID] {
-        []
+        let fetchRequest = CoreModel.FetchRequest(
+            entity: Campground.entityName,
+            sortDescriptors: [
+                .init(property: PropertyKey(Campground.CodingKeys.name))
+            ]
+        )
+        do {
+            return try store.managedObjectContext.fetchID(fetchRequest)
+                .compactMap { .init(objectID: $0) }
+        }
+        catch {
+            store.logError(error, category: .persistence)
+            return []
+        }
     }
     
     func loadEntity(_ id: Campground.ID) -> Campground? {
-        return nil
+        do {
+            guard let data = try store.managedObjectContext.fetch(Campground.entityName, for: ObjectID(id)) else {
+                return nil
+            }
+            return try Campground(from: data)
+        }
+        catch {
+            store.logError(error, category: .persistence)
+            return nil
+        }
     }
     
     func reloadData() {
