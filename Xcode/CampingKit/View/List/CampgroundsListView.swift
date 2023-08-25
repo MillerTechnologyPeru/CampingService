@@ -24,59 +24,78 @@ public struct CampgroundsListView: View {
     public init() { }
     
     public var body: some View {
-        EntityQueryListView(
-            data: loadCachedData(),
-            store: store,
-            cache: loadEntity,
-            query: $query,
-            sort: .name,
-            ascending: true,
-            limit: 0,
-            loadingContent: {
-                VStack(alignment: .center, spacing: 8) {
-                    Text("Loading")
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .padding(20)
-                }
-            },
-            emptyContent: {
-                Text("No campgrounds found.")
-            },
-            errorContent: { error in
-                VStack {
-                    Image(systemSymbol: .exclamationmarkTriangle)
-                    Text(verbatim: error.localizedDescription)
-                    Spacer()
-                    Button("Retry") {
-                        reloadData()
+        ZStack {
+            if store.didLoadPersistentStores {
+                EntityQueryListView(
+                    data: loadCachedData(),
+                    store: store,
+                    cache: loadEntity,
+                    query: $query,
+                    sort: .name,
+                    ascending: true,
+                    limit: 0,
+                    loadingContent: {
+                        LoadingView()
+                    },
+                    emptyContent: {
+                        Text("No campgrounds found.")
+                    },
+                    errorContent: { error in
+                        VStack {
+                            Image(systemSymbol: .exclamationmarkTriangle)
+                            Text(verbatim: error.localizedDescription)
+                            Spacer()
+                            Button("Retry") {
+                                reloadData()
+                            }
+                        }
+                    },
+                    rowContent: { campground in
+                        NavigationLink(destination: {
+                            CampgroundDetailView(campground: campground)
+                        }, label: {
+                            CampgroundRowView(campground: campground)
+                        })
+                    },
+                    rowPlaceholder: { id in
+                        LoadingRowView()
+                    },
+                    rowError: { error in
+                        VStack {
+                            Image(systemSymbol: .exclamationmarkTriangle)
+                            Text(verbatim: error.localizedDescription)
+                        }
                     }
-                }
-            },
-            rowContent: { campground in
-                NavigationLink(destination: {
-                    CampgroundDetailView(campground: campground)
-                }, label: {
-                    CampgroundRowView(campground: campground)
-                })
-            },
-            rowPlaceholder: { id in
-                LoadingRowView()
-            },
-            rowError: { error in
-                VStack {
-                    Image(systemSymbol: .exclamationmarkTriangle)
-                    Text(verbatim: error.localizedDescription)
-                }
+                )
+            } else {
+                LoadingView()
             }
-        )
+        }
         .navigationTitle("Campgrounds")
+    }
+}
+
+internal extension CampgroundsListView {
+    
+    struct LoadingView: View {
+        
+        var body: some View {
+            VStack(alignment: .center, spacing: 8) {
+                Text("Loading Campgrounds")
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .padding(20)
+            }
+        }
     }
 }
 
 private extension CampgroundsListView {
     
     func loadCachedData() -> [Campground.ID] {
+        guard store.didLoadPersistentStores else {
+            return []
+        }
         let fetchRequest = CoreModel.FetchRequest(
             entity: Campground.entityName,
             sortDescriptors: [
@@ -94,6 +113,9 @@ private extension CampgroundsListView {
     }
     
     func loadEntity(_ id: Campground.ID) -> Campground? {
+        guard store.didLoadPersistentStores else {
+            return nil
+        }
         do {
             guard let data = try store.managedObjectContext.fetch(Campground.entityName, for: ObjectID(id)) else {
                 return nil
