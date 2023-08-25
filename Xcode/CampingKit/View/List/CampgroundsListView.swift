@@ -17,6 +17,9 @@ public struct CampgroundsListView: View {
     @EnvironmentObject
     private var store: Store
     
+    @State
+    var query: String = ""
+    
     public init() { }
     
     public var body: some View {
@@ -24,7 +27,7 @@ public struct CampgroundsListView: View {
             data: loadCachedData(),
             store: store,
             cache: loadEntity,
-            query: "",
+            query: $query,
             sort: .name,
             ascending: true,
             limit: 0,
