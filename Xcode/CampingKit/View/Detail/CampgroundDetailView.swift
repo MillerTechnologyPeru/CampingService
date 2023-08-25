@@ -61,7 +61,7 @@ internal extension CampgroundDetailView {
                 if campground.amenities.isEmpty == false {
                     Section("Amenities") {
                         ForEach(campground.amenities, id: \.rawValue) {
-                            Text(verbatim: $0.rawValue)
+                            Text($0.localizedDescription)
                         }
                     }
                 }

@@ -41,6 +41,7 @@
 		6E4B6A292A989EF500DCDF04 /* LoadingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A282A989EF500DCDF04 /* LoadingRowView.swift */; };
 		6E4B6A2C2A98A08E00DCDF04 /* CampgroundDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2B2A98A08E00DCDF04 /* CampgroundDetailView.swift */; };
 		6E4B6A2E2A98A7FC00DCDF04 /* CampgroundMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2D2A98A7FC00DCDF04 /* CampgroundMapView.swift */; };
+		6E4B6A302A98F5F400DCDF04 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */; };
 		6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */; };
 		6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */; };
 /* End PBXBuildFile section */
@@ -98,6 +99,7 @@
 		6E4B6A282A989EF500DCDF04 /* LoadingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingRowView.swift; sourceTree = "<group>"; };
 		6E4B6A2B2A98A08E00DCDF04 /* CampgroundDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundDetailView.swift; sourceTree = "<group>"; };
 		6E4B6A2D2A98A7FC00DCDF04 /* CampgroundMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundMapView.swift; sourceTree = "<group>"; };
+		6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundsListView.swift; sourceTree = "<group>"; };
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 				6E2CF9AF2A8C5E1400811090 /* View */,
 				6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */,
 				6E2CF9AE2A8C5E0D00811090 /* Model */,
+				6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */,
 			);
 			path = CampingKit;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				6E2CF9CA2A8C6A2F00811090 /* StoreNetworking.swift in Sources */,
 				6E2CF9C32A8C69BB00811090 /* ImagePickerView.swift in Sources */,
 				6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */,
+				6E4B6A302A98F5F400DCDF04 /* LocalizedString.swift in Sources */,
 				6E2CF9CD2A8C6A2F00811090 /* StorePreferences.swift in Sources */,
 				6E4B6A192A98826000DCDF04 /* StoreCoreData.swift in Sources */,
 				6E2CF9BF2A8C695F00811090 /* ActivityIndicatorView.swift in Sources */,
