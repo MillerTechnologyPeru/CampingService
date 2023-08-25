@@ -36,6 +36,7 @@
 		6E4B6A1E2A9883DD00DCDF04 /* CoreModel in Frameworks */ = {isa = PBXBuildFile; productRef = 6E4B6A1D2A9883DD00DCDF04 /* CoreModel */; };
 		6E4B6A202A98840E00DCDF04 /* StoreFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A1F2A98840E00DCDF04 /* StoreFileManager.swift */; };
 		6E4B6A222A98846400DCDF04 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A212A98846400DCDF04 /* FileManager.swift */; };
+		6E4B6A242A98913A00DCDF04 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A232A98913A00DCDF04 /* TabView.swift */; };
 		6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */; };
 		6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		6E4B6A182A98826000DCDF04 /* StoreCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreCoreData.swift; sourceTree = "<group>"; };
 		6E4B6A1F2A98840E00DCDF04 /* StoreFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreFileManager.swift; sourceTree = "<group>"; };
 		6E4B6A212A98846400DCDF04 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		6E4B6A232A98913A00DCDF04 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundsListView.swift; sourceTree = "<group>"; };
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				6E2CF9832A8C5BFB00811090 /* ContentView.swift */,
+				6E4B6A232A98913A00DCDF04 /* TabView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 			files = (
 				6E2CF9B72A8C692100811090 /* InfoPlist.swift in Sources */,
 				6E2CF9842A8C5BFB00811090 /* ContentView.swift in Sources */,
+				6E4B6A242A98913A00DCDF04 /* TabView.swift in Sources */,
 				6E2CF9822A8C5BFB00811090 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
