@@ -22,6 +22,24 @@ public struct Schedule: Equatable, Hashable, Codable {
     }
 }
 
+// MARK: - Localization
+
+public extension Schedule {
+    
+    func localizedDescription(locale: Locale = .current) -> (start: String, end: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        dateFormatter.locale = locale
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)!
+        let startTime = TimeInterval(start * 60)
+        let endTime = TimeInterval(end * 60)
+        let start = dateFormatter.string(from: Date(timeIntervalSince1970: startTime))
+        let end = dateFormatter.string(from: Date(timeIntervalSince1970: endTime))
+        return (start, end)
+    }
+}
+
 // MARK: - CoreModel
 
 extension Schedule: AttributeEncodable {
