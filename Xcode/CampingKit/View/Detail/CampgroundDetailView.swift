@@ -60,8 +60,12 @@ internal extension CampgroundDetailView {
                 // Amenities
                 if campground.amenities.isEmpty == false {
                     Section("Amenities") {
-                        ForEach(campground.amenities, id: \.rawValue) {
-                            Text($0.localizedDescription)
+                        ForEach(campground.amenities, id: \.rawValue) { amenity in
+                            HStack {
+                                AmenityIcon(amenity: amenity)
+                                    .frame(width: 30)
+                                Text(amenity.localizedDescription)
+                            }
                         }
                     }
                 }

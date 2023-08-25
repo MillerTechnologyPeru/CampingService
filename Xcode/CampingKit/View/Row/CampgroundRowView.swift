@@ -26,12 +26,11 @@ public struct CampgroundRowView: View {
                 .foregroundColor(.gray)
             if campground.amenities.isEmpty == false {
                 HStack(alignment: .center, spacing: 8) {
-                    ForEach(campground.amenities, id: \.rawValue) {
-                        Text(verbatim: String($0.rawValue.first!)).font(.caption)
+                    ForEach(campground.amenities.prefix(8), id: \.rawValue) { amenity in
+                        AmenityIcon(amenity: amenity)
                     }
                 }
             }
-            
         }
     }
 }
@@ -45,7 +44,7 @@ struct CampgroundRowView_Preview: PreviewProvider {
             name: "Fair Play RV Park",
             address: "243 Fisher Cove Rd, Fair Play, SC",
             location: .init(latitude: 34.51446212994721, longitude: -83.01371101951648),
-            amenities: [.water, .amp50, .laundry, .wifi, .dumpStation, .pets],
+            amenities: Amenity.allCases,
             descriptionText: """
             At Fair Play RV Park, we are committed to providing a clean, safe and fun environment for all of our guests, including your fur-babies! We look forward to meeting you and having you stay with us!
             """,
@@ -69,8 +68,7 @@ struct CampgroundRowView_Preview: PreviewProvider {
             List {
                 ForEach(campgrounds) { campground in
                     NavigationLink(destination: {
-                        Text(verbatim: "\(campground)")
-                            .padding(20)
+                        CampgroundDetailView(campground: campground)
                     }, label: {
                         CampgroundRowView(campground: campground)
                     })
@@ -78,6 +76,7 @@ struct CampgroundRowView_Preview: PreviewProvider {
             }
             .navigationTitle("Campgrounds")
         }
+        .environmentObject(Store.preview)
     }
 }
 
