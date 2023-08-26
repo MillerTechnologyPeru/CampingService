@@ -41,16 +41,22 @@ public struct CampgroundDetailView: View {
                         await reloadData()
                     }
                 }
-            case let .edit(id, editValue):
+            case let .edit(id, _):
                 CampgroundEditView(campground: .init(get: {
-                    editValue
+                    guard case let .edit(_, editValue) = self.state else {
+                        fatalError()
+                    }
+                    return editValue
                 }, set: {
                     self.state = .edit(id, $0)
                 }))
                 .navigationTitle("Edit Campground")
-            case let .create(createValue):
+            case .create:
                 CampgroundEditView(campground: .init(get: {
-                    createValue
+                    guard case let .create(createValue) = self.state else {
+                        fatalError()
+                    }
+                    return createValue
                 }, set: {
                     self.state = .create($0)
                 }))
@@ -232,7 +238,7 @@ internal extension CampgroundDetailView {
     func save(id: Campground.ID, value: Campground.EditView) {
         self.state = .progress("Saving")
         let sleepTask = Task {
-            try await Task.sleep(for: .seconds(1))
+            try await Task.sleep(for: .seconds(2))
         }
         Task(priority: .userInitiated) {
             let newState: ViewState
@@ -254,7 +260,7 @@ internal extension CampgroundDetailView {
     func create(_ newValue: Campground.CreateView) {
         self.state = .progress("Saving")
         let sleepTask = Task {
-            try await Task.sleep(for: .seconds(1))
+            try await Task.sleep(for: .seconds(2))
         }
         Task(priority: .userInitiated) {
             let newState: ViewState
@@ -292,7 +298,7 @@ internal extension CampgroundDetailView {
             .disabled(false)
         case .progress:
             return Button("Save") {
-                
+                assertionFailure()
             }
             .disabled(true)
         }

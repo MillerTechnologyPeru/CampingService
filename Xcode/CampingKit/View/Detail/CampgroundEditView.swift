@@ -65,24 +65,22 @@ internal struct CampgroundEditView: View {
             }
             
             Section {
-                HStack {
-                    Text("Start")
-                    Spacer()
-                    Text(verbatim: campground.officeHours.localizedDescription().start)
-                }
-                HStack {
-                    Text("End")
-                    Spacer()
-                    Text(verbatim: campground.officeHours.localizedDescription().end)
-                }
+                DatePicker("Start", selection: officeHoursStart, displayedComponents: .hourAndMinute)
+                    .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
+                DatePicker("End", selection: officeHoursEnd, displayedComponents: .hourAndMinute)
+                    .environment(\.timeZone, TimeZone(secondsFromGMT: 0)!)
             } header: {
-                Text("Schedule")
+                Text("Office Hours")
             }
             
             Section {
-                TextField("Latitude", value: $campground.location.latitude, formatter: Self.coordinateFormatter)
+                TextField("Latitude", value: $campground.location.latitude, formatter: Self.coordinateFormatter, onCommit: {
+                    self.region.center = .init(location: campground.location)
+                })
                     .keyboardType(.numbersAndPunctuation)
-                TextField("Latitude", value: $campground.location.longitude, formatter: Self.coordinateFormatter)
+                TextField("Latitude", value: $campground.location.longitude, formatter: Self.coordinateFormatter, onCommit: {
+                    self.region.center = .init(location: campground.location)
+                })
                     .keyboardType(.numbersAndPunctuation)
                 Button("Set Current Location") {
                     Task {
@@ -189,6 +187,14 @@ internal extension CampgroundEditView {
         })
     }
     
+    var officeHoursEnd: Binding<Date> {
+        .init(get: {
+            Date(timeIntervalSince1970: TimeInterval(campground.officeHours.end * 60))
+        }, set: { newValue in
+            campground.officeHours.end = UInt(newValue.timeIntervalSince1970 / 60.0)
+        })
+    }
+    
     func toggleAmenity(_ amenity: Amenity) {
         // add or remove
         if let index = self.campground.amenities.firstIndex(where: { $0 == amenity }) {
@@ -198,9 +204,10 @@ internal extension CampgroundEditView {
         }
         // sort
         let oldValue = self.campground.amenities
-        self.campground.amenities = Amenity.allCases.filter { amenity in
+        let newValue = Amenity.allCases.filter { amenity in
             oldValue.contains(where: { $0 == amenity })
         }
+        self.campground.amenities = newValue
     }
     
     func setCurrentLocation() async {
@@ -213,6 +220,7 @@ internal extension CampgroundEditView {
             return
         }
         self.campground.location = .init(coordinates: location.coordinate)
+        self.region.center = .init(location: campground.location)
     }
 }
 
