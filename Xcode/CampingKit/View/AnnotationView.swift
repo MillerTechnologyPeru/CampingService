@@ -11,14 +11,22 @@ import MapKit
 import CoreLocation
 import CampingService
 
-struct CampgroundAnnotationView: View {
+public struct CampgroundAnnotationView: View {
+    
+    let campground: Campground
     
     @State
-    private var showTitle = true
+    private var showTitle = false
+    
+    public init(
+        campground: Campground,
+        showTitle: Bool = false
+    ) {
+        self.campground = campground
+        self.showTitle = showTitle
+    }
   
-    let campground: Campground
-  
-    var body: some View {
+    public var body: some View {
     VStack(spacing: 6) {
         NavigationLink(destination: {
             CampgroundDetailView(campground: campground)
@@ -73,7 +81,7 @@ struct CampgroundAnnotationView_Preview: PreviewProvider {
         var body: some View {
             Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: false, userTrackingMode: .none, annotationItems: [campground], annotationContent: { campground in
                 MapAnnotation(coordinate: .init(location: campground.location)) {
-                    CampgroundAnnotationView(campground: campground)
+                    CampgroundAnnotationView(campground: campground, showTitle: true)
                 }
             })
             .ignoresSafeArea()

@@ -134,11 +134,6 @@ internal extension CampgroundEditView {
         return formatter
     }()
     
-    static let emptyStringFormatter: EmptyStringFormatter = {
-        let formatter = EmptyStringFormatter()
-        return formatter
-    }()
-    
     var image: Binding<String> {
         .init(get: {
             campground.image?.absoluteString ?? ""
