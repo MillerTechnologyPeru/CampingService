@@ -51,7 +51,7 @@ internal extension CampgroundDetailView {
                         Image(systemSymbol: .map)
                             .frame(minWidth: 30)
                         NavigationLink(destination: {
-                            CampgroundMapView(campground: campground)
+                            MapView(campground: campground)
                         }, label: {
                             Text(verbatim: campground.address)
                         })
@@ -100,11 +100,14 @@ internal extension CampgroundDetailView {
                                 .cornerRadius(10)
                                 .padding(.bottom, 15)
                         } placeholder: {
-                            ProgressView()
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                Spacer()
+                            }
                         }
                     }
                 })
-                
                 
                 // Amenities
                 if campground.amenities.isEmpty == false {
@@ -119,6 +122,7 @@ internal extension CampgroundDetailView {
                     }
                 }
                 
+                //
                 if let directions = campground.directions {
                     Section("Directions") {
                         Text(verbatim: directions)
