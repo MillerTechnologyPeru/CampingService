@@ -18,12 +18,20 @@ public struct CampgroundDetailView: View {
     @State
     var state: ViewState
     
+    @State
+    var edit: Campground.EditView
+    
+    @State
+    var error: Error?
+    
     public init(campground: Campground) {
         self._state = .init(initialValue: .view(campground))
+        self._edit = .init(initialValue: .init(campground))
     }
     
     public init(create campground: Campground.CreateView) {
-        self._state = .init(initialValue: .create(campground))
+        self._state = .init(initialValue: .create)
+        self._edit = .init(initialValue: campground)
     }
     
     public var body: some View {
@@ -41,30 +49,23 @@ public struct CampgroundDetailView: View {
                         await reloadData()
                     }
                 }
-            case let .edit(id, _):
-                CampgroundEditView(campground: .init(get: {
-                    guard case let .edit(_, editValue) = self.state else {
-                        fatalError()
-                    }
-                    return editValue
-                }, set: {
-                    self.state = .edit(id, $0)
-                }))
-                .navigationTitle("Edit Campground")
+            case .edit:
+                CampgroundEditView(campground: $edit)
+                    .navigationTitle("Edit Campground")
             case .create:
-                CampgroundEditView(campground: .init(get: {
-                    guard case let .create(createValue) = self.state else {
-                        fatalError()
-                    }
-                    return createValue
-                }, set: {
-                    self.state = .create($0)
-                }))
-                .navigationTitle("Create Campground")
+                CampgroundEditView(campground: $edit)
+                    .navigationTitle("Create Campground")
             }
         }
         .toolbar {
             actionButton
+        }
+        .alert(isPresented: showError) {
+            Alert(
+                title: Text("Error"),
+                message: self.error.map { Text(verbatim: $0.localizedDescription) },
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }
@@ -74,8 +75,8 @@ internal extension CampgroundDetailView {
     enum ViewState {
         case progress(LocalizedStringKey)
         case view(Campground)
-        case edit(Campground.ID, Campground.EditView)
-        case create(Campground.CreateView)
+        case edit(Campground.ID)
+        case create
     }
     
     struct LoadingView: View {
@@ -208,74 +209,68 @@ internal extension CampgroundDetailView {
         guard case var .view(campground) = self.state else {
             return
         }
+        let sleepTask = Task {
+            try await Task.sleep(for: .seconds(1))
+        }
         do {
             campground = try await store.fetch(Campground.self, for: campground.id)
-            self.state = .view(campground)
+            try? await sleepTask.value
+            self.view(campground)
         }
         catch {
             store.logError(error, category: .networking)
+            try? await sleepTask.value
+            self.error = error
         }
+    }
+    
+    func view(_ campground: Campground) {
+        self.state = .view(campground)
+        self.edit = .init(campground)
     }
     
     func edit(_ campground: Campground) {
-        let editValue = Campground.EditView(
-            name: campground.name,
-            image: campground.image,
-            address: campground.address,
-            location: campground.location,
-            amenities: campground.amenities,
-            phoneNumber: campground.phoneNumber,
-            email: campground.email,
-            descriptionText: campground.descriptionText,
-            notes: campground.notes,
-            directions: campground.directions,
-            timeZone: campground.timeZone,
-            officeHours: campground.officeHours
-        )
-        self.state = .edit(campground.id, editValue)
+        self.state = .edit(campground.id)
+        self.edit = .init(campground)
     }
     
-    func save(id: Campground.ID, value: Campground.EditView) {
-        self.state = .progress("Saving")
+    func save(id: Campground.ID) {
+        self.state = .progress("Saving...")
         let sleepTask = Task {
             try await Task.sleep(for: .seconds(2))
         }
         Task(priority: .userInitiated) {
-            let newState: ViewState
             do {
-                let newValue: Campground = try await store.edit(value, for: id)
-                newState = .view(newValue)
+                let newValue: Campground = try await store.edit(edit, for: id)
+                try? await sleepTask.value
+                self.view(newValue)
             }
             catch {
                 store.logError(error, category: .networking)
-                newState = .edit(id, value)
-                // TODO: Show alert
-                
+                try? await sleepTask.value
+                self.error = error
+                self.state = .edit(id)
             }
-            try? await sleepTask.value
-            self.state = newState
         }
     }
     
-    func create(_ newValue: Campground.CreateView) {
-        self.state = .progress("Saving")
+    func create() {
+        self.state = .progress("Creating...")
         let sleepTask = Task {
             try await Task.sleep(for: .seconds(2))
         }
         Task(priority: .userInitiated) {
-            let newState: ViewState
             do {
-                let newValue: Campground = try await store.create(newValue)
-                newState = .view(newValue)
+                let newValue: Campground = try await store.create(edit)
+                try? await sleepTask.value
+                self.view(newValue)
             }
             catch {
                 store.logError(error, category: .networking)
-                newState = .create(newValue)
-                // TODO: Show alert
-                
+                try? await sleepTask.value
+                self.error = error
+                self.state = .create
             }
-            try? await sleepTask.value
-            self.state = newState
         }
     }
     
@@ -286,14 +281,14 @@ internal extension CampgroundDetailView {
                 self.edit(campground)
             }
             .disabled(false)
-        case let .edit(id, editValue):
+        case let .edit(id):
             return Button("Save") {
-                self.save(id: id, value: editValue)
+                self.save(id: id)
             }
             .disabled(false)
-        case let .create(newValue):
+        case .create:
             return Button("Save") {
-                self.create(newValue)
+                self.create()
             }
             .disabled(false)
         case .progress:
@@ -302,6 +297,16 @@ internal extension CampgroundDetailView {
             }
             .disabled(true)
         }
+    }
+    
+    var showError: Binding<Bool> {
+        Binding(get: {
+            error != nil
+        }, set: {
+            if $0 == false {
+                self.error = nil
+            }
+        })
     }
 }
 

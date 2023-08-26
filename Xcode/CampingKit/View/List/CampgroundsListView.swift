@@ -21,9 +21,6 @@ public struct CampgroundsListView: View {
     @State
     var query: String = ""
     
-    @State
-    var newValue: Campground.CreateView?
-    
     public init() { }
     
     public var body: some View {
@@ -76,17 +73,29 @@ public struct CampgroundsListView: View {
         }
         .navigationTitle("Campgrounds")
         .toolbar {
-            Button(action: {
-                create()
+            NavigationLink(destination: {
+                CampgroundDetailView(create: Campground.CreateView(
+                    name: "New Campground",
+                    image: nil,
+                    address: "",
+                    location: .init(latitude: 0, longitude: 0),
+                    amenities: [],
+                    phoneNumber: nil,
+                    email: nil,
+                    descriptionText: "",
+                    notes: nil,
+                    directions: nil,
+                    timeZone: 0,
+                    officeHours: Schedule(
+                        start: 60 * 8,
+                        end: 60 * 18
+                    )
+                )
+                )
             }, label: {
                 Image(systemSymbol: .plus)
             })
         }
-        .sheet(isPresented: createSheet, content: {
-            NavigationView {
-                CampgroundDetailView(create: newValue!)
-            }
-        })
     }
 }
 
@@ -145,33 +154,6 @@ private extension CampgroundsListView {
     
     func reloadData() {
         
-    }
-    
-    func create() {
-        self.newValue = Campground.CreateView(
-            name: "New Campground",
-            image: nil,
-            address: "",
-            location: .init(latitude: 0, longitude: 0),
-            amenities: [],
-            phoneNumber: nil,
-            email: nil,
-            descriptionText: "",
-            notes: nil,
-            directions: nil,
-            timeZone: 0,
-            officeHours: Schedule(
-                start: 60 * 8,
-                end: 60 * 18
-            )
-        )
-    }
-    
-    var createSheet: Binding<Bool> {
-        .init(
-            get: { self.newValue != nil },
-            set: { self.newValue = $0 ? self.newValue : nil }
-        )
     }
 }
 
