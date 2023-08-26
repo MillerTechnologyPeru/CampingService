@@ -23,17 +23,17 @@ struct CampingTabView: View {
             }
             .tabItem {
                 Text("Camp")
-                Image(systemSymbol: .tent)
+                Image(systemSymbol: selection == .campgrounds ? .tentFill : .tent)
             }
             .tag(CampingTab.campgrounds)
             
             // Map Tab Item
             NavigationView {
-                CampgroundsListView()
+                MapView()
             }
             .tabItem {
                 Text("Map")
-                Image(systemSymbol: .map)
+                Image(systemSymbol: selection == .map ? .mapFill : .map)
             }
             .tag(CampingTab.map)
             
@@ -43,7 +43,7 @@ struct CampingTabView: View {
             }
             .tabItem {
                 Text("Settings")
-                Image(systemSymbol: .gearshape)
+                Image(systemSymbol: selection == .map ? .gearshapeFill : .gearshape)
             }
             .tag(CampingTab.settings)
         }
