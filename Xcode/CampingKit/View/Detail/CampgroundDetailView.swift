@@ -274,23 +274,27 @@ internal extension CampgroundDetailView {
     }
     
     var actionButton: some View {
-        VStack {
-            switch state {
-            case let .view(campground):
-                Button("Edit") {
-                    self.edit(campground)
-                }
-            case let .edit(id, editValue):
-                Button("Save") {
-                    self.save(id: id, value: editValue)
-                }
-            case let .create(newValue):
-                Button("Save") {
-                    self.create(newValue)
-                }
-            case .progress:
-                EmptyView()
+        switch state {
+        case let .view(campground):
+            return Button("Edit") {
+                self.edit(campground)
             }
+            .disabled(false)
+        case let .edit(id, editValue):
+            return Button("Save") {
+                self.save(id: id, value: editValue)
+            }
+            .disabled(false)
+        case let .create(newValue):
+            return Button("Save") {
+                self.create(newValue)
+            }
+            .disabled(false)
+        case .progress:
+            return Button("Save") {
+                
+            }
+            .disabled(true)
         }
     }
 }
