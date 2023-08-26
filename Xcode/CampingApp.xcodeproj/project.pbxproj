@@ -40,8 +40,13 @@
 		6E4B6A262A98993400DCDF04 /* CampgroundRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A252A98993400DCDF04 /* CampgroundRowView.swift */; };
 		6E4B6A292A989EF500DCDF04 /* LoadingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A282A989EF500DCDF04 /* LoadingRowView.swift */; };
 		6E4B6A2C2A98A08E00DCDF04 /* CampgroundDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2B2A98A08E00DCDF04 /* CampgroundDetailView.swift */; };
-		6E4B6A2E2A98A7FC00DCDF04 /* CampgroundMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2D2A98A7FC00DCDF04 /* CampgroundMapView.swift */; };
 		6E4B6A302A98F5F400DCDF04 /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */; };
+		6E4B6A322A98FC0200DCDF04 /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A312A98FC0200DCDF04 /* Symbols.swift */; };
+		6E4B6A372A9905E300DCDF04 /* AmenityIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A362A9905E300DCDF04 /* AmenityIcon.swift */; };
+		6E4B6A3B2A99351100DCDF04 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A3A2A99351100DCDF04 /* MapView.swift */; };
+		6E4B6A3E2A9938BE00DCDF04 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A3D2A9938BE00DCDF04 /* AnnotationView.swift */; };
+		6E4B6A432A994D5300DCDF04 /* AsyncLocationKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6E4B6A422A994D5300DCDF04 /* AsyncLocationKit */; };
+		6E4B6A452A99B00F00DCDF04 /* CampgroundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A442A99B00E00DCDF04 /* CampgroundEditView.swift */; };
 		6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */; };
 		6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */; };
 /* End PBXBuildFile section */
@@ -98,8 +103,12 @@
 		6E4B6A252A98993400DCDF04 /* CampgroundRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundRowView.swift; sourceTree = "<group>"; };
 		6E4B6A282A989EF500DCDF04 /* LoadingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingRowView.swift; sourceTree = "<group>"; };
 		6E4B6A2B2A98A08E00DCDF04 /* CampgroundDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundDetailView.swift; sourceTree = "<group>"; };
-		6E4B6A2D2A98A7FC00DCDF04 /* CampgroundMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundMapView.swift; sourceTree = "<group>"; };
 		6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
+		6E4B6A312A98FC0200DCDF04 /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
+		6E4B6A362A9905E300DCDF04 /* AmenityIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityIcon.swift; sourceTree = "<group>"; };
+		6E4B6A3A2A99351100DCDF04 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapView.swift; path = CampingKit/View/MapView.swift; sourceTree = SOURCE_ROOT; };
+		6E4B6A3D2A9938BE00DCDF04 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		6E4B6A442A99B00E00DCDF04 /* CampgroundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundEditView.swift; sourceTree = "<group>"; };
 		6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundsListView.swift; sourceTree = "<group>"; };
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +128,7 @@
 			files = (
 				6E4B6A172A986FC100DCDF04 /* NetworkObjectsUI in Frameworks */,
 				6E4B6A1C2A9883DD00DCDF04 /* CoreDataModel in Frameworks */,
+				6E4B6A432A994D5300DCDF04 /* AsyncLocationKit in Frameworks */,
 				6E2CF9AD2A8C5DC800811090 /* SFSafeSymbols in Frameworks */,
 				6E4B6A1E2A9883DD00DCDF04 /* CoreModel in Frameworks */,
 				6E2CF9AA2A8C5D2200811090 /* KeychainAccess in Frameworks */,
@@ -180,7 +190,6 @@
 				6E2CF9AF2A8C5E1400811090 /* View */,
 				6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */,
 				6E2CF9AE2A8C5E0D00811090 /* Model */,
-				6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */,
 			);
 			path = CampingKit;
 			sourceTree = "<group>";
@@ -211,12 +220,14 @@
 		6E2CF9AF2A8C5E1400811090 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6E4B6A352A9905CE00DCDF04 /* Drawable */,
 				6E4B6A2A2A98A07400DCDF04 /* Detail */,
 				6E4B6A272A98993A00DCDF04 /* Row */,
 				6EB2A56A2A97BFAB006BBFC5 /* List */,
 				6E2CF9BA2A8C695F00811090 /* AppKit */,
 				6E2CF9BC2A8C695F00811090 /* UIKit */,
 				6E2CF9C02A8C698E00811090 /* CachedAsyncImage.swift */,
+				6E4B6A3C2A9938AC00DCDF04 /* MapKit */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +236,8 @@
 			isa = PBXGroup;
 			children = (
 				6E4B6A212A98846400DCDF04 /* FileManager.swift */,
+				6E4B6A2F2A98F5F400DCDF04 /* LocalizedString.swift */,
+				6E4B6A312A98FC0200DCDF04 /* Symbols.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -290,9 +303,26 @@
 			isa = PBXGroup;
 			children = (
 				6E4B6A2B2A98A08E00DCDF04 /* CampgroundDetailView.swift */,
-				6E4B6A2D2A98A7FC00DCDF04 /* CampgroundMapView.swift */,
+				6E4B6A442A99B00E00DCDF04 /* CampgroundEditView.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		6E4B6A352A9905CE00DCDF04 /* Drawable */ = {
+			isa = PBXGroup;
+			children = (
+				6E4B6A362A9905E300DCDF04 /* AmenityIcon.swift */,
+			);
+			path = Drawable;
+			sourceTree = "<group>";
+		};
+		6E4B6A3C2A9938AC00DCDF04 /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				6E4B6A3A2A99351100DCDF04 /* MapView.swift */,
+				6E4B6A3D2A9938BE00DCDF04 /* AnnotationView.swift */,
+			);
+			name = MapKit;
 			sourceTree = "<group>";
 		};
 		6EB2A56A2A97BFAB006BBFC5 /* List */ = {
@@ -359,6 +389,7 @@
 				6E4B6A162A986FC100DCDF04 /* NetworkObjectsUI */,
 				6E4B6A1B2A9883DD00DCDF04 /* CoreDataModel */,
 				6E4B6A1D2A9883DD00DCDF04 /* CoreModel */,
+				6E4B6A422A994D5300DCDF04 /* AsyncLocationKit */,
 			);
 			productName = CampingKit;
 			productReference = 6E2CF9952A8C5C4100811090 /* CampingKit.framework */;
@@ -398,6 +429,7 @@
 				6E2CF9AB2A8C5DC800811090 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				6E4B6A132A986FC100DCDF04 /* XCRemoteSwiftPackageReference "NetworkObjects" */,
 				6E4B6A1A2A9883DD00DCDF04 /* XCRemoteSwiftPackageReference "CoreModel" */,
+				6E4B6A412A994D5300DCDF04 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */,
 			);
 			productRefGroup = 6E2CF97F2A8C5BFB00811090 /* Products */;
 			projectDirPath = "";
@@ -445,21 +477,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E4B6A2C2A98A08E00DCDF04 /* CampgroundDetailView.swift in Sources */,
+				6E4B6A3B2A99351100DCDF04 /* MapView.swift in Sources */,
 				6E2CF9BE2A8C695F00811090 /* ProgressIndicatorView.swift in Sources */,
 				6E2CF9C92A8C6A2F00811090 /* Preferences.swift in Sources */,
+				6E4B6A322A98FC0200DCDF04 /* Symbols.swift in Sources */,
 				6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */,
 				6E2CF9A22A8C5C4E00811090 /* CampingKit.swift in Sources */,
 				6E2CF9CB2A8C6A2F00811090 /* StoreLog.swift in Sources */,
 				6E4B6A292A989EF500DCDF04 /* LoadingRowView.swift in Sources */,
-				6E4B6A2E2A98A7FC00DCDF04 /* CampgroundMapView.swift in Sources */,
 				6E2CF9B52A8C685F00811090 /* Store.swift in Sources */,
+				6E4B6A372A9905E300DCDF04 /* AmenityIcon.swift in Sources */,
 				6E4B6A262A98993400DCDF04 /* CampgroundRowView.swift in Sources */,
+				6E4B6A3E2A9938BE00DCDF04 /* AnnotationView.swift in Sources */,
 				6E4B6A202A98840E00DCDF04 /* StoreFileManager.swift in Sources */,
 				6E4B6A222A98846400DCDF04 /* FileManager.swift in Sources */,
 				6E2CF9CC2A8C6A2F00811090 /* StoreKeychain.swift in Sources */,
 				6E2CF9C12A8C698E00811090 /* CachedAsyncImage.swift in Sources */,
 				6E2CF9CA2A8C6A2F00811090 /* StoreNetworking.swift in Sources */,
 				6E2CF9C32A8C69BB00811090 /* ImagePickerView.swift in Sources */,
+				6E4B6A452A99B00F00DCDF04 /* CampgroundEditView.swift in Sources */,
 				6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */,
 				6E4B6A302A98F5F400DCDF04 /* LocalizedString.swift in Sources */,
 				6E2CF9CD2A8C6A2F00811090 /* StorePreferences.swift in Sources */,
@@ -610,6 +646,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is needed for viewing the campgrounds map.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -647,6 +684,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is needed for viewing the campgrounds map.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -822,6 +860,14 @@
 				kind = branch;
 			};
 		};
+		6E4B6A412A994D5300DCDF04 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AsyncSwift/AsyncLocationKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -863,6 +909,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6E4B6A1A2A9883DD00DCDF04 /* XCRemoteSwiftPackageReference "CoreModel" */;
 			productName = CoreModel;
+		};
+		6E4B6A422A994D5300DCDF04 /* AsyncLocationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E4B6A412A994D5300DCDF04 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */;
+			productName = AsyncLocationKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "asynclocationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AsyncSwift/AsyncLocationKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3ed4342b98bfefa15935e269afa2b822c7437f63"
+      }
+    },
+    {
       "identity" : "coremodel",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PureSwift/CoreModel.git",
