@@ -29,6 +29,9 @@ public struct MapView: View {
     @State
     private var task: Task<Void, Never>?
     
+    @State
+    private var didAppear = false
+    
     let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
     
     public init(campground: Campground? = nil) {
@@ -37,8 +40,8 @@ public struct MapView: View {
             initialValue: MKCoordinateRegion(
                 center: coordinates,
                 span: MKCoordinateSpan(
-                    latitudeDelta: 15,
-                    longitudeDelta: 16
+                    latitudeDelta: campground == nil ? 15 : 0.01,
+                    longitudeDelta: campground == nil ? 15 : 0.01
                 )
             )
         )
@@ -56,9 +59,12 @@ public struct MapView: View {
             task = Task(priority: .userInitiated) {
                 await reloadData()
             }
-            // fetch user location
-            Task {
-                await requestUserLocation()
+            if didAppear == false {
+                didAppear = true
+                // fetch user location
+                Task {
+                    await requestUserLocation()
+                }
             }
         }
     }

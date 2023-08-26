@@ -22,7 +22,7 @@ struct CampingTabView: View {
                 CampgroundsListView()
             }
             .tabItem {
-                Text("Camp")
+                Text("Camps")
                 Image(systemSymbol: selection == .campgrounds ? .tentFill : .tent)
             }
             .tag(CampingTab.campgrounds)
