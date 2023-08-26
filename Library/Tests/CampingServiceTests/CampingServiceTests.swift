@@ -11,9 +11,10 @@ final class CampingServiceTests: XCTestCase {
     func testAmenities() throws {
         
         let amenitites = Amenity.allCases
-        let expectedValue = AttributeValue.string("water,amp30,amp50,wifi,laundry,mail,dumpStation,picnicArea,storage,cabins,showers,restrooms,pool,fishing,beach,lake,river,rv,tent,pets")
+        let expectedValue = AttributeValue.string("water,amp30,amp50,wifi,laundry,mail,rv,tent,pets,dumpStation,picnicArea,storage,cabins,showers,restrooms,pool,fishing,beach,lake,river")
         XCTAssertEqual(amenitites.attributeValue, expectedValue)
         XCTAssertEqual([Amenity](attributeValue: expectedValue), amenitites)
+        XCTAssertEqual([Amenity](attributeValue: .string("")), [])
     }
     
     func testLocation() {
