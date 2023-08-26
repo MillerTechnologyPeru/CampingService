@@ -37,8 +37,11 @@ internal struct CampgroundEditView: View {
                 TextField("Name", text: $campground.name)
                 TextField("Address", text: $campground.address)
                 TextField("Image URL", text: image)
+                    .keyboardType(.URL)
                 TextField("Phone Number", text: phoneNumber)
+                    .keyboardType(.phonePad)
                 TextField("Email", text: email)
+                    .keyboardType(.emailAddress)
                 TextField("Description", text: $campground.descriptionText, axis: .vertical)
                 TextField("Notes", text: notes, axis: .vertical)
                 TextField("Directions", text: directions, axis: .vertical)
@@ -64,12 +67,12 @@ internal struct CampgroundEditView: View {
             Section {
                 HStack {
                     Text("Start")
-                        .frame(minWidth: 50)
+                    Spacer()
                     Text(verbatim: campground.officeHours.localizedDescription().start)
                 }
                 HStack {
                     Text("End")
-                        .frame(minWidth: 50)
+                    Spacer()
                     Text(verbatim: campground.officeHours.localizedDescription().end)
                 }
             } header: {
@@ -77,6 +80,10 @@ internal struct CampgroundEditView: View {
             }
             
             Section {
+                TextField("Latitude", value: $campground.location.latitude, formatter: Self.coordinateFormatter)
+                    .keyboardType(.numbersAndPunctuation)
+                TextField("Latitude", value: $campground.location.longitude, formatter: Self.coordinateFormatter)
+                    .keyboardType(.numbersAndPunctuation)
                 Button("Set Current Location") {
                     Task {
                         await setCurrentLocation()
@@ -123,6 +130,17 @@ internal struct CampgroundEditView: View {
 
 internal extension CampgroundEditView {
     
+    static let coordinateFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
+    static let emptyStringFormatter: EmptyStringFormatter = {
+        let formatter = EmptyStringFormatter()
+        return formatter
+    }()
+    
     var image: Binding<String> {
         .init(get: {
             campground.image?.absoluteString ?? ""
@@ -160,6 +178,14 @@ internal extension CampgroundEditView {
             campground.phoneNumber ?? ""
         }, set: { newValue in
             campground.phoneNumber = newValue.isEmpty ? nil : newValue
+        })
+    }
+    
+    var officeHoursStart: Binding<Date> {
+        .init(get: {
+            Date(timeIntervalSince1970: TimeInterval(campground.officeHours.start * 60))
+        }, set: { newValue in
+            campground.officeHours.start = UInt(newValue.timeIntervalSince1970 / 60.0)
         })
     }
     
