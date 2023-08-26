@@ -17,6 +17,9 @@ public enum Amenity: String, Codable, CaseIterable {
     case wifi
     case laundry
     case mail
+    case rv
+    case tent
+    case pets
     case dumpStation
     case picnicArea
     case storage
@@ -28,9 +31,6 @@ public enum Amenity: String, Codable, CaseIterable {
     case beach
     case lake
     case river
-    case rv
-    case tent
-    case pets
 }
 
 // MARK: - CoreModel
