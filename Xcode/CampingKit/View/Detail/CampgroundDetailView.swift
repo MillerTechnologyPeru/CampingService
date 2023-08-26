@@ -44,11 +44,6 @@ public struct CampgroundDetailView: View {
                 .refreshable {
                     await reloadData()
                 }
-                .onAppear {
-                    Task {
-                        await reloadData()
-                    }
-                }
             case .edit:
                 CampgroundEditView(campground: $edit)
                     .navigationTitle("Edit Campground")
@@ -66,6 +61,11 @@ public struct CampgroundDetailView: View {
                 message: self.error.map { Text(verbatim: $0.localizedDescription) },
                 dismissButton: .default(Text("OK"))
             )
+        }
+        .onAppear {
+            Task {
+                await reloadData()
+            }
         }
     }
 }
@@ -106,11 +106,15 @@ internal extension CampgroundDetailView {
                     HStack {
                         Image(systemSymbol: .map)
                             .frame(minWidth: 30)
-                        NavigationLink(destination: {
-                            MapView(campground: campground)
-                        }, label: {
+                        if let percentEncodedAddress = campground.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                           let url = URL(string: "maps://?address=\(percentEncodedAddress)") {
+                            Link(destination: url, label: {
+                                Text(verbatim: campground.address)
+                            })
+                        } else {
                             Text(verbatim: campground.address)
-                        })
+                                .textSelection(.enabled)
+                        }
                     }
                     
                     // Phone Number
