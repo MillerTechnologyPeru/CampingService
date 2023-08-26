@@ -27,21 +27,29 @@ public struct MapView: View {
     private var userTrackingMode: MapUserTrackingMode = .none
     
     @State
+    private var showsUserLocation = false
+    
+    @State
     private var task: Task<Void, Never>?
     
     @State
     private var didAppear = false
     
+    @State
+    private var campgrounds: [Campground] = []
+    
+    @State
+    var error: Error?
+    
     let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
     
-    public init(campground: Campground? = nil) {
-        let coordinates = campground.flatMap { CLLocationCoordinate2D(location: $0.location) } ?? CLLocationCoordinate2D(latitude: 39.999733, longitude: -98.678503)
+    public init() {
         self._region = .init(
             initialValue: MKCoordinateRegion(
-                center: coordinates,
+                center: CLLocationCoordinate2D(latitude: -81.034331, longitude: 34.000749),
                 span: MKCoordinateSpan(
-                    latitudeDelta: campground == nil ? 15 : 0.01,
-                    longitudeDelta: campground == nil ? 15 : 0.01
+                    latitudeDelta: 15,
+                    longitudeDelta: 15
                 )
             )
         )
@@ -51,9 +59,11 @@ public struct MapView: View {
         ContentView(
             campgrounds: campgrounds,
             region: $region,
-            userTrackingMode: $userTrackingMode
+            userTrackingMode: $userTrackingMode,
+            showsUserLocation: $showsUserLocation
         )
         .onAppear {
+            fetchCache()
             // load data from server
             task?.cancel()
             task = Task(priority: .userInitiated) {
@@ -67,28 +77,34 @@ public struct MapView: View {
                 }
             }
         }
+        .alert(isPresented: showError) {
+            Alert(
+                title: Text("Error"),
+                message: self.error.map { Text(verbatim: $0.localizedDescription) },
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 
 internal extension MapView {
     
-    var campgrounds: [Campground] {
+    func fetchCache() {
         guard store.didLoadPersistentStores else {
-            return []
+            return
         }
         let fetchRequest = CoreModel.FetchRequest(entity: Campground.entityName)
         do {
             let data = try store.managedObjectContext.fetch(fetchRequest)
-            return data.compactMap { try? Campground(from: $0) }
+            let cache = data.compactMap { try? Campground(from: $0) }
+            self.campgrounds = cache
         }
         catch {
             store.logError(error, category: .persistence)
             assertionFailure(error.localizedDescription)
-            return []
         }
     }
     
-    @MainActor
     func reloadData() async {
         let request = QueryRequest<Campground>()
         let objectIDs: [Campground.ID]
@@ -125,10 +141,24 @@ internal extension MapView {
         guard permission == .authorizedWhenInUse else {
             return
         }
-        self.userTrackingMode = .follow
-        if let currentLocation = try? await locationManager.requestLocation() {
-            
+        self.userTrackingMode = .none
+        self.showsUserLocation = true
+        if let currentLocation = try? await locationManager.requestLocation(),
+           case let .didUpdateLocations(locations: locations) = currentLocation,
+            let location = locations.first {
+            self.region.center = location.coordinate
+            self.region.span = .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
         }
+    }
+    
+    var showError: Binding<Bool> {
+        Binding(get: {
+            error != nil
+        }, set: {
+            if $0 == false {
+                self.error = nil
+            }
+        })
     }
 }
 
@@ -144,21 +174,26 @@ internal extension MapView {
         @Binding
         private var userTrackingMode: MapUserTrackingMode
         
+        @Binding
+        private var showsUserLocation: Bool
+        
         init(
             campgrounds: [Campground],
             region: Binding<MKCoordinateRegion>,
-            userTrackingMode: Binding<MapUserTrackingMode>
+            userTrackingMode: Binding<MapUserTrackingMode>,
+            showsUserLocation: Binding<Bool>
         ) {
             self.campgrounds = campgrounds
             self._region = region
             self._userTrackingMode = userTrackingMode
+            self._showsUserLocation = showsUserLocation
         }
         
         var body: some View {
             Map(
                 coordinateRegion: $region,
                 interactionModes: .all,
-                showsUserLocation: true,
+                showsUserLocation: showsUserLocation,
                 userTrackingMode: $userTrackingMode,
                 annotationItems: campgrounds) { campground in
                     MapAnnotation(coordinate: .init(location: campground.location)) {

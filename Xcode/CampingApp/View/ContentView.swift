@@ -7,17 +7,21 @@
 
 import SwiftUI
 import CampingKit
+import AsyncLocationKit
 
 struct ContentView: View {
     
     @EnvironmentObject
     private var store: Store
     
+    let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
+    
     var body: some View {
         content
             .onAppear {
                 Task {
                     await store.loadPersistentStores()
+                    let _ = await locationManager.requestPermission(with: .whenInUsage)
                 }
             }
     }
