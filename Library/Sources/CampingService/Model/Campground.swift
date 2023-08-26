@@ -16,7 +16,7 @@ public struct Campground: Equatable, Hashable, Codable, Identifiable {
     
     public let created: Date
     
-    public let updated: Date
+    public var updated: Date
     
     public var name: String
     

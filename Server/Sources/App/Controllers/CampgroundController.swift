@@ -49,6 +49,7 @@ struct CampgroundController: VaporEntityController {
             throw Abort(.notFound)
         }
         // apply changes
+        campground.updated = Date()
         campground.name = newValue.name
         campground.image = newValue.image
         campground.address = newValue.address
@@ -62,6 +63,7 @@ struct CampgroundController: VaporEntityController {
         campground.timeZone = newValue.timeZone
         campground.officeHours = newValue.officeHours
         // return updated value
+        try await database.insert(campground)
         return campground
     }
     
