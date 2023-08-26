@@ -200,3 +200,23 @@ extension Campground: NetworkEntity {
         }
     }
 }
+
+public extension Campground.Content {
+    
+    init(_ campground: Campground) {
+        self.init(
+            name: campground.name,
+            image: campground.image,
+            address: campground.address,
+            location: campground.location,
+            amenities: campground.amenities,
+            phoneNumber: campground.phoneNumber,
+            email: campground.email,
+            descriptionText: campground.descriptionText,
+            notes: campground.notes,
+            directions: campground.directions,
+            timeZone: campground.timeZone,
+            officeHours: campground.officeHours
+        )
+    }
+}
