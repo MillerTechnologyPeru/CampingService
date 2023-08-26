@@ -49,6 +49,7 @@
 		6E4B6A452A99B00F00DCDF04 /* CampgroundEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4B6A442A99B00E00DCDF04 /* CampgroundEditView.swift */; };
 		6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */; };
 		6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */; };
+		6EE0347D2A9A92B600BA1FE4 /* ServerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		6E4B6A442A99B00E00DCDF04 /* CampgroundEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundEditView.swift; sourceTree = "<group>"; };
 		6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundsListView.swift; sourceTree = "<group>"; };
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
+		6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				6E2CF9B92A8C692F00811090 /* View */,
 				6E2CF9B82A8C692800811090 /* Model */,
 				6E2CF9812A8C5BFB00811090 /* App.swift */,
+				6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */,
 				6E2CF9852A8C5BFC00811090 /* Assets.xcassets */,
 				6E2CF9872A8C5BFC00811090 /* CampingApp.entitlements */,
 				6E2CF9882A8C5BFC00811090 /* Preview Content */,
@@ -467,6 +470,7 @@
 			files = (
 				6E2CF9B72A8C692100811090 /* InfoPlist.swift in Sources */,
 				6E2CF9842A8C5BFB00811090 /* ContentView.swift in Sources */,
+				6EE0347D2A9A92B600BA1FE4 /* ServerURL.swift in Sources */,
 				6E4B6A242A98913A00DCDF04 /* TabView.swift in Sources */,
 				6E2CF9822A8C5BFB00811090 /* App.swift in Sources */,
 			);
