@@ -49,6 +49,10 @@ extension Array: AttributeDecodable where Self.Element == Amenity  {
         guard let string = String(attributeValue: attributeValue) else {
             return nil
         }
+        guard string.isEmpty == false else {
+            self = []
+            return
+        }
         let components = string.components(separatedBy: ",")
         var values = [Amenity]()
         values.reserveCapacity(components.count)
