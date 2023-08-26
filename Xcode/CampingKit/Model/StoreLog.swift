@@ -32,6 +32,7 @@ public extension Store {
         let message: String
         #if DEBUG
         message = "⚠️ " + error.localizedDescription + " \(file):\(line):\(function)"
+        dump(error)
         #else
         message = "⚠️ " + error.localizedDescription
         #endif

@@ -11,118 +11,117 @@ import MapKit
 import CampingService
 import AsyncLocationKit
 
-public struct CampgroundEditView: View {
+internal struct CampgroundEditView: View {
     
-    @EnvironmentObject
-    private var store: Store
-    
-    @State
+    @Binding
     var campground: Campground.Content
     
-    public init(campground: Campground.Content) {
-        self._campground = .init(initialValue: campground)
+    @State
+    var region: MKCoordinateRegion
+    
+    let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
+    
+    init(campground: Binding<Campground.Content>) {
+        self._campground = campground
+        let region = MKCoordinateRegion(
+            center: .init(location: campground.location.wrappedValue),
+            span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        )
+        self._region = .init(initialValue: region)
     }
     
-    public var body: some View {
-        ContentView(campground: $campground)
-    }
-}
-
-internal extension CampgroundEditView {
-    
-    struct ContentView: View {
-        
-        @Binding
-        var campground: Campground.Content
-        
-        let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
-        
-        var body: some View {
-            List {
-                
-                Section {
-                    TextField("Name", text: $campground.name)
-                    TextField("Address", text: $campground.address)
-                    TextField("Image URL", text: image)
-                    TextField("Phone Number", text: phoneNumber)
-                    TextField("Email", text: email)
-                    TextField("Description", text: $campground.descriptionText, axis: .vertical)
-                    TextField("Notes", text: notes, axis: .vertical)
-                    TextField("Directions", text: directions, axis: .vertical)
-                } header: {
-                    if let url = campground.image {
-                        CachedAsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .imageScale(.medium)
-                                .cornerRadius(10)
-                                .padding(.bottom, 15)
-                        } placeholder: {
-                            HStack {
-                                Spacer()
-                                ProgressView()
-                                Spacer()
-                            }
+    var body: some View {
+        List {
+            
+            Section {
+                TextField("Name", text: $campground.name)
+                TextField("Address", text: $campground.address)
+                TextField("Image URL", text: image)
+                TextField("Phone Number", text: phoneNumber)
+                TextField("Email", text: email)
+                TextField("Description", text: $campground.descriptionText, axis: .vertical)
+                TextField("Notes", text: notes, axis: .vertical)
+                TextField("Directions", text: directions, axis: .vertical)
+            } header: {
+                if let url = campground.image {
+                    CachedAsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .imageScale(.medium)
+                            .cornerRadius(10)
+                            .padding(.bottom, 15)
+                    } placeholder: {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
                         }
                     }
                 }
-                                
-                Section {
-                    
-                } header: {
-                    Text("Schedule")
+            }
+            
+            Section {
+                HStack {
+                    Text("Start")
+                        .frame(minWidth: 50)
+                    Text(verbatim: campground.officeHours.localizedDescription().start)
                 }
-                
-                Section {
-                    
-                    Map(coordinateRegion: .constant(MKCoordinateRegion(
-                        center: .init(location: campground.location),
-                        span: MKCoordinateSpan(
-                            latitudeDelta: 0.1,
-                            longitudeDelta: 0.1
-                        )
-                    )), annotationItems: [CampgroundEditView.Annotation(campground: campground)], annotationContent: { annotation in
+                HStack {
+                    Text("End")
+                        .frame(minWidth: 50)
+                    Text(verbatim: campground.officeHours.localizedDescription().end)
+                }
+            } header: {
+                Text("Schedule")
+            }
+            
+            Section {
+                Button("Set Current Location") {
+                    Task {
+                        await setCurrentLocation()
+                    }
+                }
+            } header: {
+                VStack {
+                    HStack {
+                        Text("Location")
+                        Spacer()
+                    }
+                    Map(coordinateRegion: $region, annotationItems: [CampgroundEditView.Annotation(campground: campground)], annotationContent: { annotation in
                         MapAnnotation(coordinate: .init(location: annotation.id), content: {
                             CampgroundEditView.AnnotationView(annotation: annotation)
                         })
                     })
-                    .frame(minHeight: 150)
-                    
-                    Button("Set Current Location") {
-                        Task {
-                            await setCurrentLocation()
-                        }
-                    }
-                } header: {
-                    Text("Location")
+                    .cornerRadius(10)
+                    .frame(minHeight: 200)
                 }
-                
-                Section("Amenities") {
-                    ForEach(Amenity.allCases, id: \.rawValue) { amenity in
-                        Button(action: {
-                            toggleAmenity(amenity)
-                        }, label: {
-                            HStack {
-                                AmenityIcon(amenity: amenity)
-                                    .frame(minWidth: 30)
-                                Text(amenity.localizedDescription)
-                                Spacer(minLength: 15)
-                                if campground.amenities.contains(where: { $0 == amenity }) {
-                                    Image(systemSymbol: .checkmark)
-                                        .foregroundColor(.green)
-                                }
+            }
+            
+            Section("Amenities") {
+                ForEach(Amenity.allCases, id: \.rawValue) { amenity in
+                    Button(action: {
+                        toggleAmenity(amenity)
+                    }, label: {
+                        HStack {
+                            AmenityIcon(amenity: amenity)
+                                .frame(minWidth: 30)
+                            Text(amenity.localizedDescription)
+                            Spacer(minLength: 15)
+                            if campground.amenities.contains(where: { $0 == amenity }) {
+                                Image(systemSymbol: .checkmark)
+                                    .foregroundColor(.green)
                             }
-                        })
-                        .buttonStyle(.plain)
-                    }
+                        }
+                    })
+                    .buttonStyle(.plain)
                 }
             }
         }
     }
 }
 
-internal extension CampgroundEditView.ContentView {
+internal extension CampgroundEditView {
     
     var image: Binding<String> {
         .init(get: {
@@ -210,7 +209,6 @@ internal extension CampgroundEditView {
         }
     }
     
-    
     struct AnnotationView: View {
         
         @State
@@ -256,15 +254,15 @@ struct CampgroundEditView_Preview: PreviewProvider {
         @State
         var campground = Campground.EditView(
             name: "New Campground",
-            address: "",
-            location: .init(latitude: 0, longitude: 0),
+            address: "106 Via Duomo",
+            location: .init(latitude: 34.51446212994721, longitude: -83.01371101951648),
             amenities: [.water, .amp30, .rv],
-            descriptionText: "",
+            descriptionText: "Our RV Campground is awesome!",
             officeHours: Schedule(start: 60 * 8, end: 60 * 18)
         )
         
         var body: some View {
-            CampgroundEditView.ContentView(campground: $campground)
+            CampgroundEditView(campground: $campground)
         }
     }
         

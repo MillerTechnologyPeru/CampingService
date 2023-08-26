@@ -16,26 +16,75 @@ public struct CampgroundDetailView: View {
     private var store: Store
     
     @State
-    var campground: Campground
+    var state: ViewState
     
     public init(campground: Campground) {
-        self._campground = .init(initialValue: campground)
+        self._state = .init(initialValue: .view(campground))
+    }
+    
+    public init(create campground: Campground.CreateView) {
+        self._state = .init(initialValue: .create(campground))
     }
     
     public var body: some View {
-        ContentView(campground: campground)
-        .refreshable {
-            await reloadData()
-        }
-        .onAppear {
-            Task {
-                await reloadData()
+        ZStack {
+            switch state {
+            case let .progress(title):
+                LoadingView(title: title)
+            case let .view(campground):
+                ContentView(campground: campground)
+                .refreshable {
+                    await reloadData()
+                }
+                .onAppear {
+                    Task {
+                        await reloadData()
+                    }
+                }
+            case let .edit(id, editValue):
+                CampgroundEditView(campground: .init(get: {
+                    editValue
+                }, set: {
+                    self.state = .edit(id, $0)
+                }))
+                .navigationTitle("Edit Campground")
+            case let .create(createValue):
+                CampgroundEditView(campground: .init(get: {
+                    createValue
+                }, set: {
+                    self.state = .create($0)
+                }))
+                .navigationTitle("Create Campground")
             }
+        }
+        .toolbar {
+            actionButton
         }
     }
 }
 
 internal extension CampgroundDetailView {
+    
+    enum ViewState {
+        case progress(LocalizedStringKey)
+        case view(Campground)
+        case edit(Campground.ID, Campground.EditView)
+        case create(Campground.CreateView)
+    }
+    
+    struct LoadingView: View {
+        
+        let title: LocalizedStringKey
+        
+        var body: some View {
+            VStack(alignment: .center, spacing: 8) {
+                Text(title)
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .padding(20)
+            }
+        }
+    }
     
     struct ContentView: View {
         
@@ -146,15 +195,102 @@ internal extension CampgroundDetailView.ContentView {
         return "\(officeHours.start) - \(officeHours.end)"
     }
 }
-    
+
 internal extension CampgroundDetailView {
     
     func reloadData() async {
+        guard case var .view(campground) = self.state else {
+            return
+        }
         do {
-            self.campground = try await store.fetch(Campground.self, for: campground.id)
+            campground = try await store.fetch(Campground.self, for: campground.id)
+            self.state = .view(campground)
         }
         catch {
             store.logError(error, category: .networking)
+        }
+    }
+    
+    func edit(_ campground: Campground) {
+        let editValue = Campground.EditView(
+            name: campground.name,
+            image: campground.image,
+            address: campground.address,
+            location: campground.location,
+            amenities: campground.amenities,
+            phoneNumber: campground.phoneNumber,
+            email: campground.email,
+            descriptionText: campground.descriptionText,
+            notes: campground.notes,
+            directions: campground.directions,
+            timeZone: campground.timeZone,
+            officeHours: campground.officeHours
+        )
+        self.state = .edit(campground.id, editValue)
+    }
+    
+    func save(id: Campground.ID, value: Campground.EditView) {
+        self.state = .progress("Saving")
+        let sleepTask = Task {
+            try await Task.sleep(for: .seconds(1))
+        }
+        Task(priority: .userInitiated) {
+            let newState: ViewState
+            do {
+                let newValue: Campground = try await store.edit(value, for: id)
+                newState = .view(newValue)
+            }
+            catch {
+                store.logError(error, category: .networking)
+                newState = .edit(id, value)
+                // TODO: Show alert
+                
+            }
+            try? await sleepTask.value
+            self.state = newState
+        }
+    }
+    
+    func create(_ newValue: Campground.CreateView) {
+        self.state = .progress("Saving")
+        let sleepTask = Task {
+            try await Task.sleep(for: .seconds(1))
+        }
+        Task(priority: .userInitiated) {
+            let newState: ViewState
+            do {
+                let newValue: Campground = try await store.create(newValue)
+                newState = .view(newValue)
+            }
+            catch {
+                store.logError(error, category: .networking)
+                newState = .create(newValue)
+                // TODO: Show alert
+                
+            }
+            try? await sleepTask.value
+            self.state = newState
+        }
+    }
+    
+    var actionButton: some View {
+        VStack {
+            switch state {
+            case let .view(campground):
+                Button("Edit") {
+                    self.edit(campground)
+                }
+            case let .edit(id, editValue):
+                Button("Save") {
+                    self.save(id: id, value: editValue)
+                }
+            case let .create(newValue):
+                Button("Save") {
+                    self.create(newValue)
+                }
+            case .progress:
+                EmptyView()
+            }
         }
     }
 }
