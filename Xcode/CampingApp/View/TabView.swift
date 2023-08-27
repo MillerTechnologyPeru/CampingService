@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 import CampingKit
 import SFSafeSymbols
 
@@ -16,10 +17,19 @@ struct CampingTabView: View {
     private var store: Store
     
     @State
-    private var selection: CampingTab?
+    private var selection: Int = 0
     
     @State
     private var campgroundPath = [CampingNavigationItem]()
+    
+    @State
+    private var mapRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: -81.034331, longitude: 34.000749),
+        span: MKCoordinateSpan(
+            latitudeDelta: 15,
+            longitudeDelta: 15
+        )
+    )
     
     var body: some View {
         TabView(selection: $selection) {
@@ -30,17 +40,19 @@ struct CampingTabView: View {
             }
             .tabItem {
                 Text("Camps")
-                Image(systemSymbol: selection == .campgrounds ? .tentFill : .tent)
+                Image(systemSymbol: .tent)
             }
-            .tag(CampingTab.campgrounds)
+            .tag(CampingTab.campgrounds.rawValue)
             
             // Map Tab Item
-            MapView()
+            NavigationStack {
+                MapView(region: $mapRegion)
+            }
             .tabItem {
                 Text("Map")
-                Image(systemSymbol: selection == .map ? .mapFill : .map)
+                Image(systemSymbol: .map)
             }
-            .tag(CampingTab.map)
+            .tag(CampingTab.map.rawValue)
             
             // Map Tab Item
             NavigationStack {
@@ -48,9 +60,9 @@ struct CampingTabView: View {
             }
             .tabItem {
                 Text("Reservation")
-                Image(systemSymbol: selection == .reservations ? .ticketFill : .ticket)
+                Image(systemSymbol: .ticket)
             }
-            .tag(CampingTab.reservations)
+            .tag(CampingTab.reservations.rawValue)
             
             // Settings
             NavigationView {
@@ -58,9 +70,9 @@ struct CampingTabView: View {
             }
             .tabItem {
                 Text("Settings")
-                Image(systemSymbol: selection == .map ? .gearshapeFill : .gearshape)
+                Image(systemSymbol: .gearshape)
             }
-            .tag(CampingTab.settings)
+            .tag(CampingTab.settings.rawValue)
         }
         .onOpenURL(perform: openURL)
     }
@@ -75,6 +87,10 @@ enum CampingTab: Int, CaseIterable {
 }
 
 internal extension CampingTabView {
+    
+    func show(tab: CampingTab) {
+        self.selection = tab.rawValue
+    }
     
     func openURL(_ url: URL) {
         guard let campingURL = CampingURL(url: url) else {
@@ -100,18 +116,34 @@ internal extension CampingTabView {
             } else {
                 campground = try await store.fetch(Campground.self, for: id)
             }
-            self.selection = .campgrounds
-            if self.campgroundPath.isEmpty == false {
-                try? await Task.sleep(for: .milliseconds(100))
-                self.campgroundPath.removeAll(keepingCapacity: true)
-                try? await Task.sleep(for: .milliseconds(100))
+            self.show(tab: .campgrounds)
+            if self.campgroundPath != [.campground(campground)] {
+                if self.campgroundPath.isEmpty == false {
+                    try? await Task.sleep(for: .milliseconds(100))
+                    self.campgroundPath.removeAll(keepingCapacity: true)
+                    try? await Task.sleep(for: .seconds(1))
+                }
+                self.campgroundPath.append(.campground(campground))
             }
-            self.campgroundPath.append(.campground(campground))
         case let .location(id):
-            self.selection = .map
+            let campground: Campground
+            if let cache = try await store.persistentContainer.fetch(Campground.self, for: id) {
+                campground = cache
+            } else {
+                campground = try await store.fetch(Campground.self, for: id)
+            }
+            self.show(tab: .map)
+            try? await Task.sleep(for: .milliseconds(500))
+            self.mapRegion = .init(
+                center: .init(location: campground.location),
+                span: .init(
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01
+                )
+            )
         case let .reservation(id):
             // TODO: Reservation
-            self.selection = .reservations
+            self.show(tab: .reservations)
         }
     }
 }

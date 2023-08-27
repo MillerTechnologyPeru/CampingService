@@ -20,7 +20,7 @@ public struct MapView: View {
     @EnvironmentObject
     private var store: Store
     
-    @State
+    @Binding
     private var region: MKCoordinateRegion
     
     @State
@@ -43,16 +43,8 @@ public struct MapView: View {
     
     let locationManager = AsyncLocationManager(desiredAccuracy: .hundredMetersAccuracy)
     
-    public init() {
-        self._region = .init(
-            initialValue: MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: -81.034331, longitude: 34.000749),
-                span: MKCoordinateSpan(
-                    latitudeDelta: 15,
-                    longitudeDelta: 15
-                )
-            )
-        )
+    public init(region: Binding<MKCoordinateRegion>) {
+        self._region = region
     }
     
     public var body: some View {
@@ -76,6 +68,10 @@ public struct MapView: View {
                     await requestUserLocation()
                 }
             }
+        }
+        .onDisappear {
+            task?.cancel()
+            task = nil
         }
         .alert(isPresented: showError) {
             Alert(
@@ -133,6 +129,8 @@ internal extension MapView {
         for task in tasks {
             await task.value
         }
+        // update local campgrounds
+        fetchCache()
     }
     
     @MainActor
@@ -205,13 +203,13 @@ internal extension MapView {
 }
 
 #if DEBUG
-
+/*
 struct MapView_Preview: PreviewProvider {
     
     static var previews: some View {
         TabView {
             NavigationView {
-                MapView()
+                MapView(region: )
             }
             .tabItem {
                 Text("Map")
@@ -221,5 +219,5 @@ struct MapView_Preview: PreviewProvider {
         .environmentObject(Store.preview)
     }
 }
-
+*/
 #endif

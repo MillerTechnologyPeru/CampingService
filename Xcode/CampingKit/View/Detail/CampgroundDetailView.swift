@@ -106,12 +106,7 @@ internal extension CampgroundDetailView {
                     HStack {
                         Image(systemSymbol: .map)
                             .frame(minWidth: 30)
-                        if let percentEncodedAddress = campground.address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                           let url = URL(string: "maps://?address=\(percentEncodedAddress)") {
-                            Link(destination: url, label: {
-                                Text(verbatim: campground.address)
-                            })
-                        } else {
+                        Link(destination: URL(CampingURL.location(campground.id))) {
                             Text(verbatim: campground.address)
                                 .textSelection(.enabled)
                         }
