@@ -29,6 +29,7 @@ public struct CampgroundRowView: View {
                     ForEach(campground.amenities.prefix(8), id: \.rawValue) { amenity in
                         AmenityIcon(amenity: amenity)
                     }
+                    Spacer(minLength: 0)
                 }
             }
         }
