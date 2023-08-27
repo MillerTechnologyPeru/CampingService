@@ -28,11 +28,9 @@ public struct CampgroundAnnotationView: View {
   
     public var body: some View {
     VStack(spacing: 6) {
-        NavigationLink(destination: {
-            CampgroundDetailView(campground: campground)
-        }, label: {
+        Link(destination: URL(CampingURL.campground(campground.id))) {
             CampgroundRowView(campground: campground)
-        })
+        }
         .padding(8)
         .background(Color.white)
         .foregroundColor(Color.black)
