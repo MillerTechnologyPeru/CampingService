@@ -31,8 +31,7 @@ public struct CampgroundAnnotationView: View {
         NavigationLink(destination: {
             CampgroundDetailView(campground: campground)
         }, label: {
-            Text(verbatim: campground.name)
-                .font(.callout)
+            CampgroundRowView(campground: campground)
         })
         .padding(8)
         .background(Color.white)
