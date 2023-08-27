@@ -19,7 +19,7 @@ struct CampingTabView: View {
     private var selection: CampingTab?
     
     @State
-    private var campgroundPath = NavigationPath()
+    private var campgroundPath = [CampingNavigationItem]()
     
     var body: some View {
         TabView(selection: $selection) {
@@ -42,6 +42,16 @@ struct CampingTabView: View {
             }
             .tag(CampingTab.map)
             
+            // Map Tab Item
+            NavigationStack {
+                Image(systemSymbol: .ticketFill)
+            }
+            .tabItem {
+                Text("Reservation")
+                Image(systemSymbol: selection == .reservations ? .ticketFill : .ticket)
+            }
+            .tag(CampingTab.reservations)
+            
             // Settings
             NavigationView {
                 Image(systemSymbol: .gear)
@@ -60,6 +70,7 @@ enum CampingTab: Int, CaseIterable {
     
     case campgrounds
     case map
+    case reservations
     case settings
 }
 
@@ -90,12 +101,17 @@ internal extension CampingTabView {
                 campground = try await store.fetch(Campground.self, for: id)
             }
             self.selection = .campgrounds
-            self.campgroundPath = NavigationPath([CampingNavigationItem.campground(campground)])
+            if self.campgroundPath.isEmpty == false {
+                try? await Task.sleep(for: .milliseconds(100))
+                self.campgroundPath.removeAll(keepingCapacity: true)
+                try? await Task.sleep(for: .milliseconds(100))
+            }
+            self.campgroundPath.append(.campground(campground))
         case let .location(id):
             self.selection = .map
         case let .reservation(id):
             // TODO: Reservation
-            self.selection = .campgrounds
+            self.selection = .reservations
         }
     }
 }
