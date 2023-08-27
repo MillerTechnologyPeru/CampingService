@@ -12,13 +12,20 @@ import SFSafeSymbols
 
 struct CampingTabView: View {
     
+    @EnvironmentObject
+    private var store: Store
+    
     @State
     private var selection: CampingTab?
     
+    @State
+    private var campgroundPath = NavigationPath()
+    
     var body: some View {
         TabView(selection: $selection) {
+            
             // Camp Tab Item
-            NavigationView {
+            NavigationStack(path: $campgroundPath) {
                 CampgroundsListView()
             }
             .tabItem {
@@ -28,9 +35,7 @@ struct CampingTabView: View {
             .tag(CampingTab.campgrounds)
             
             // Map Tab Item
-            NavigationView {
-                MapView()
-            }
+            MapView()
             .tabItem {
                 Text("Map")
                 Image(systemSymbol: selection == .map ? .mapFill : .map)
@@ -47,6 +52,7 @@ struct CampingTabView: View {
             }
             .tag(CampingTab.settings)
         }
+        .onOpenURL(perform: openURL)
     }
 }
 
@@ -55,6 +61,43 @@ enum CampingTab: Int, CaseIterable {
     case campgrounds
     case map
     case settings
+}
+
+internal extension CampingTabView {
+    
+    func openURL(_ url: URL) {
+        guard let campingURL = CampingURL(url: url) else {
+            store.log("Invalid URL \(url)", level: .error, category: .app)
+            return
+        }
+        Task(priority: .userInitiated) {
+            do {
+                try await openURL(campingURL)
+            }
+            catch {
+                store.logError(error, category: .app)
+            }
+        }
+    }
+    
+    func openURL(_ campingURL: CampingURL) async throws {
+        switch campingURL {
+        case let .campground(id):
+            let campground: Campground
+            if let cache = try await store.persistentContainer.fetch(Campground.self, for: id) {
+                campground = cache
+            } else {
+                campground = try await store.fetch(Campground.self, for: id)
+            }
+            self.selection = .campgrounds
+            self.campgroundPath = NavigationPath([CampingNavigationItem.campground(campground)])
+        case let .location(id):
+            self.selection = .map
+        case let .reservation(id):
+            // TODO: Reservation
+            self.selection = .campgrounds
+        }
+    }
 }
 
 #if DEBUG
