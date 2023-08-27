@@ -73,40 +73,72 @@ public extension Store {
 extension Store: ObjectStore {
     
     public func fetch<T: NetworkEntity>(_ type: T.Type, for id: T.ID) async throws -> T {
-        let value = try await networkObjects.fetch(type, for: id)
-        try await commit { context in
-            let modelData = try value.encode()
-            try context.insert(modelData)
+        try await networkObjects(id: id) {
+            try await networkObjects.fetch(type, for: id)
         }
-        return value
     }
     
     public func create<T: NetworkEntity>(_ value: T.CreateView) async throws -> T {
         let newValue = try await networkObjects.create(value) as T
-        try await commit { context in
-            let modelData = try newValue.encode()
-            try context.insert(modelData)
+        do {
+            try await commit { context in
+                let modelData = try newValue.encode()
+                try context.insert(modelData)
+            }
+        }
+        catch {
+            logError(error, category: .persistence)
         }
         return newValue
     }
     
     public func edit<T: NetworkEntity>(_ value: T.EditView, for id: T.ID) async throws -> T {
-        let newValue = try await networkObjects.edit(value, for: id) as T
-        try await commit { context in
-            let modelData = try newValue.encode()
-            try context.insert(modelData)
+        try await networkObjects(id: id) {
+            try await networkObjects.edit(value, for: id)
         }
-        return newValue
     }
     
     public func delete<T: NetworkEntity>(_ type: T.Type, for id: T.ID) async throws {
         try await networkObjects.delete(type, for: id)
-        try await commit { context in
-            try context.delete(type.entityName, for: ObjectID(id))
+        do {
+            try await commit { context in
+                try context.delete(type.entityName, for: ObjectID(id))
+            }
+        }
+        catch {
+            logError(error, category: .persistence)
         }
     }
     
     public func query<T: NetworkEntity>(_ request: QueryRequest<T>) async throws -> [T.ID] {
         try await networkObjects.query(request)
+    }
+}
+
+private extension Store {
+    
+    func networkObjects<T: NetworkEntity>(id: T.ID, _ operation: () async throws -> T) async throws -> T {
+        let value: T
+        do {
+            value = try await operation()
+        }
+        catch NetworkObjectsError.invalidStatusCode(404) {
+            // delete from cache if not found
+            try? await commit { context in
+                try context.delete(T.entityName, for: ObjectID(id))
+            }
+            throw NetworkObjectsError.invalidStatusCode(404)
+        }
+        do {
+            // insert into cache
+            try await commit { context in
+                let modelData = try value.encode()
+                try context.insert(modelData)
+            }
+        }
+        catch {
+            logError(error, category: .persistence)
+        }
+        return value
     }
 }
