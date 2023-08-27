@@ -51,11 +51,9 @@ public struct CampgroundsListView: View {
                         }
                     },
                     rowContent: { campground in
-                        NavigationLink(destination: {
-                            CampgroundDetailView(campground: campground)
-                        }, label: {
+                        CampingNavigationLink(value: .campground(campground)) {
                             CampgroundRowView(campground: campground)
-                        })
+                        }
                     },
                     rowPlaceholder: { id in
                         LoadingRowView()
@@ -72,6 +70,9 @@ public struct CampgroundsListView: View {
             }
         }
         .navigationTitle("Campgrounds")
+        .navigationDestination(for: CampingNavigationItem.self) {
+            CampingItemDetailView(value: $0)
+        }
         .toolbar {
             NavigationLink(destination: {
                 CampgroundDetailView(create: Campground.CreateView(

@@ -50,6 +50,7 @@
 		6EB2A56C2A97C10E006BBFC5 /* CampgroundsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */; };
 		6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */; };
 		6EE0347D2A9A92B600BA1FE4 /* ServerURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */; };
+		6EE0347F2A9AD64200BA1FE4 /* NavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0347E2A9AD64200BA1FE4 /* NavigationLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		6EB2A56B2A97C10E006BBFC5 /* CampgroundsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundsListView.swift; sourceTree = "<group>"; };
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
 		6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerURL.swift; sourceTree = "<group>"; };
+		6EE0347E2A9AD64200BA1FE4 /* NavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,9 +191,9 @@
 		6E2CF9962A8C5C4100811090 /* CampingKit */ = {
 			isa = PBXGroup;
 			children = (
+				6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */,
 				6E2CF9B02A8C5E1900811090 /* Extensions */,
 				6E2CF9AF2A8C5E1400811090 /* View */,
-				6E2CF9A12A8C5C4E00811090 /* CampingKit.swift */,
 				6E2CF9AE2A8C5E0D00811090 /* Model */,
 			);
 			path = CampingKit;
@@ -224,13 +226,14 @@
 			isa = PBXGroup;
 			children = (
 				6E4B6A352A9905CE00DCDF04 /* Drawable */,
+				6E4B6A3C2A9938AC00DCDF04 /* MapKit */,
 				6E4B6A2A2A98A07400DCDF04 /* Detail */,
 				6E4B6A272A98993A00DCDF04 /* Row */,
 				6EB2A56A2A97BFAB006BBFC5 /* List */,
 				6E2CF9BA2A8C695F00811090 /* AppKit */,
 				6E2CF9BC2A8C695F00811090 /* UIKit */,
 				6E2CF9C02A8C698E00811090 /* CachedAsyncImage.swift */,
-				6E4B6A3C2A9938AC00DCDF04 /* MapKit */,
+				6EE0347E2A9AD64200BA1FE4 /* NavigationLink.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				6EB2A5702A97F5EC006BBFC5 /* EntityQueryListView.swift in Sources */,
 				6E4B6A302A98F5F400DCDF04 /* LocalizedString.swift in Sources */,
 				6E2CF9CD2A8C6A2F00811090 /* StorePreferences.swift in Sources */,
+				6EE0347F2A9AD64200BA1FE4 /* NavigationLink.swift in Sources */,
 				6E4B6A192A98826000DCDF04 /* StoreCoreData.swift in Sources */,
 				6E2CF9BF2A8C695F00811090 /* ActivityIndicatorView.swift in Sources */,
 			);
