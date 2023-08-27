@@ -115,6 +115,7 @@
 		6EB2A56F2A97F5EC006BBFC5 /* EntityQueryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityQueryListView.swift; sourceTree = "<group>"; };
 		6EE0347C2A9A92B600BA1FE4 /* ServerURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerURL.swift; sourceTree = "<group>"; };
 		6EE0347E2A9AD64200BA1FE4 /* NavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLink.swift; sourceTree = "<group>"; };
+		6EE034802A9ADE9400BA1FE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +169,7 @@
 		6E2CF9802A8C5BFB00811090 /* CampingApp */ = {
 			isa = PBXGroup;
 			children = (
+				6EE034802A9ADE9400BA1FE4 /* Info.plist */,
 				6E2CF9CE2A8C737200811090 /* Intents */,
 				6E2CF9B92A8C692F00811090 /* View */,
 				6E2CF9B82A8C692800811090 /* Model */,
@@ -654,6 +656,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CampingApp/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is needed for viewing the campgrounds map.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -692,6 +695,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CampingApp/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location is needed for viewing the campgrounds map.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
