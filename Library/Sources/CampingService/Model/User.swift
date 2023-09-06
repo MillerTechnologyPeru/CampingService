@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModel
 
 /// User
 public struct User: Equatable, Hashable, Codable, Identifiable {
@@ -15,6 +16,8 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     public let created: Date
     
     public var email: String
+    
+    public var isEmailVerified: Bool
     
     public var phoneNumber: String?
     
@@ -30,6 +33,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
         id: UUID = UUID(),
         created: Date = Date(),
         email: String,
+        isEmailVerified: Bool = false,
         phoneNumber: String? = nil,
         firstName: String,
         lastName: String,
@@ -38,6 +42,7 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
     ) {
         self.id = id
         self.email = email
+        self.isEmailVerified = isEmailVerified
         self.firstName = firstName
         self.lastName = lastName
         self.gender = gender
@@ -45,7 +50,39 @@ public struct User: Equatable, Hashable, Codable, Identifiable {
         self.phoneNumber = phoneNumber
         self.created = created
     }
+    
+    public enum CodingKeys: CodingKey {
+        case id
+        case created
+        case email
+        case isEmailVerified
+        case phoneNumber
+        case firstName
+        case lastName
+        case gender
+        case role
+    }
 }
+
+// MARK: - CoreModel
+
+extension User: Entity {
+    
+    public static var attributes: [CodingKeys : CoreModel.AttributeType] {
+        [
+            .created: .date,
+            .email: .string,
+            .isEmailVerified: .bool,
+            .phoneNumber: .string,
+            .firstName: .string,
+            .lastName: .string,
+            .gender: .string,
+            .role: .int32
+        ]
+    }
+}
+
+// MARK: - Supporting Types
 
 public extension User {
     
@@ -58,11 +95,34 @@ public extension User {
     }
 }
 
+extension User.Role: Comparable {
+    
+    public static func < (lhs: User.Role, rhs: User.Role) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+    
+    public static func > (lhs: User.Role, rhs: User.Role) -> Bool {
+        lhs.rawValue > rhs.rawValue
+    }
+}
+
 public extension User {
     
     enum Gender: String, Codable, CaseIterable {
         
         case male
         case female
+    }
+}
+
+public extension User {
+    
+    struct Content: Equatable, Hashable, Codable {
+        
+        public var phoneNumber: String?
+        
+        public var firstName: String
+        
+        public var lastName: String
     }
 }
